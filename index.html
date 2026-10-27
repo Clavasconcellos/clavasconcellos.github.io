@@ -514,6 +514,7 @@ button.link{ border:0; background:transparent; padding:0; font:inherit; font-siz
 .foot-list a:hover{ color:var(--brand); text-decoration:underline; text-underline-offset:3px; }
 .foot-list span{ color:var(--tag); }
 .foot-bottom{ grid-column:1 / -1; display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; border-top:1px solid var(--hairline); padding-top:20px; font-size:12px; line-height:14px; }
+.foot-bottom .foot-disclaimer{ flex-basis:100%; max-width:120ch; text-wrap:pretty; }
 @media (max-width:1023px){
   .foot-brand{ grid-column:1 / span 3; }
   .foot-list{ grid-column:4 / span 3; }
@@ -1478,6 +1479,7 @@ button.link{ border:0; background:transparent; padding:0; font:inherit; font-siz
     <div class="foot-bottom">
       <p data-i18n="rights">© 2026 CPV. All rights reserved.</p>
       <p data-i18n="madeWith">Designed &amp; built with intention.</p>
+      <p class="foot-disclaimer t-caption" data-i18n="disclaimer">Trademarks and logos belong to their respective owners. Work shown for portfolio purposes only; names, data, and figures are fictional or altered to protect confidential information.</p>
     </div>
   </div>
 </footer>
@@ -1513,6 +1515,7 @@ button.link{ border:0; background:transparent; padding:0; font:inherit; font-siz
     contactSub:'Manda um alô e vamos tomar um café!',
     copyAria:'Copiar o e-mail clavas23@gmail.com', copiedT:'E-mail copiado!', dismiss:'Fechar notificação', copiedB:'Agora é só colar onde quiser.', copyFailT:'Não deu para copiar automaticamente', liAria:'Clarissa no LinkedIn',
     rights:'© 2026 CPV. Todos os direitos reservados.', madeWith:'Desenhado e construído com intenção.',
+    disclaimer:'Marcas e logos pertencem aos seus respectivos donos. Projetos apresentados apenas para fins de portfólio; nomes, dados e valores são fictícios ou foram alterados para proteger informações confidenciais.',
     cH1a:'Do campo à tela:', cH1b:'Ferramentas de backoffice para aproximar clientes e consultores',
     altHero:'O Web Manager da 3tentos em um notebook, um tablet e um celular, no meio de uma lavoura de soja.',
     sumRole:'Papel', sumRoleV:'Estagiária de UX/UI Design', sumTime:'Período', sumTimeV:'Dez 2021 - Jun 2022', sumPlat:'Plataforma',
