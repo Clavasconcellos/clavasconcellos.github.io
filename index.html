@@ -1862,7 +1862,8 @@ button.link{ border:0; background:transparent; padding:0; font:inherit; font-siz
     if (a){
       e.preventDefault();
       const r = a.dataset.route;
-      try { history.replaceState(null, '', '#' + r); } catch(_){}
+      /* each page visit gets its own history entry, so the browser Back button returns to the previous page */
+      if (r !== current) { try { history.pushState(null, '', '#' + r); } catch(_){} }
       show(r, {focus:true});
       return;
     }
@@ -1930,7 +1931,10 @@ button.link{ border:0; background:transparent; padding:0; font:inherit; font-siz
     li.addEventListener('focusin', on); li.addEventListener('focusout', off);
   });
   reduce.addEventListener && reduce.addEventListener('change', syncVideo);
-  window.addEventListener('hashchange', () => { const h = location.hash.replace('#',''); if (views[h]) show(h); });
+  try { history.scrollRestoration = 'manual'; } catch(_){}
+  const fromUrl = () => { const h = location.hash.replace('#',''); show(views[h] ? h : 'home'); };
+  window.addEventListener('popstate', fromUrl);
+  window.addEventListener('hashchange', fromUrl);
 
   syncThemeLabels();
   applyLang();
