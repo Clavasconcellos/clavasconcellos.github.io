@@ -1,10 +1,13 @@
 <!doctype html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Clarissa Pilla Vasconcellos | Product Designer</title>
-<meta name="description" content="Portfolio of Clarissa Pilla Vasconcellos, Product Designer based in Porto Alegre, Brazil.">
+<script>/* hide the page until Portuguese copy is applied (only for visitors who will get PT), so English never flashes; failsafe after 1.5s */
+(function(){var d=document.documentElement,v=null;try{v=localStorage.getItem("cpv-lang")}catch(e){}var b=((navigator.languages&&navigator.languages[0])||navigator.language||"").toLowerCase();var pt=v==="pt"||(v!=="en"&&b.indexOf("pt")===0);if(!pt)return;d.classList.add("i18n-wait");setTimeout(function(){d.classList.remove("i18n-wait")},1500)})();</script>
+<style>.i18n-wait body{visibility:hidden}</style>
+<meta name="description" content="Portfólio de Clarissa Pilla Vasconcellos, Product Designer em Porto Alegre, Brasil.">
 <meta name="author" content="Clarissa Pilla Vasconcellos">
 <meta name="theme-color" content="#ebe9e5" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#040814" media="(prefers-color-scheme: dark)">
@@ -15,9 +18,11 @@
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <!-- Link previews (LinkedIn, WhatsApp, Slack) -->
 <meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:locale:alternate" content="en_US">
 <meta property="og:site_name" content="CPV">
 <meta property="og:title" content="Clarissa Pilla Vasconcellos | Product Designer">
-<meta property="og:description" content="Portfolio of Clarissa Pilla Vasconcellos, Product Designer based in Porto Alegre, Brazil.">
+<meta property="og:description" content="Portfólio de Clarissa Pilla Vasconcellos, Product Designer em Porto Alegre, Brasil.">
 <meta property="og:url" content="https://clavasconcellos.github.io/">
 <meta property="og:image" content="https://clavasconcellos.github.io/assets/og-image.jpg">
 <meta property="og:image:width" content="1200">
@@ -1749,7 +1754,10 @@ button.link{ border:0; background:transparent; padding:0; font:inherit; font-siz
   Object.assign(EN, ENX);
 
   const store = { get(k){ try { return localStorage.getItem(k); } catch(_) { return null; } }, set(k,v){ try { localStorage.setItem(k,v); } catch(_){} } };
-  let lang = store.get('cpv-lang') === 'pt' ? 'pt' : 'en';
+  /* saved choice wins; otherwise follow the visitor's main browser language (Portuguese -> PT-BR, anything else -> EN) */
+  const browserLang = () => { try { return ((navigator.languages && navigator.languages[0]) || navigator.language || '').toLowerCase(); } catch(_) { return ''; } };
+  const savedLang = store.get('cpv-lang');
+  let lang = savedLang === 'en' || savedLang === 'pt' ? savedLang : (browserLang().startsWith('pt') ? 'pt' : 'en');
   const t = k => (lang === 'pt' ? PT : EN)[k] ?? EN[k] ?? '';
 
   /* move the two header actions into the mobile panel too */
@@ -1923,6 +1931,7 @@ button.link{ border:0; background:transparent; padding:0; font:inherit; font-siz
 
   syncThemeLabels();
   applyLang();
+  document.documentElement.classList.remove('i18n-wait');
   const start = (location.hash || '').replace('#','');
   show(views[start] ? start : 'home');
 })();
