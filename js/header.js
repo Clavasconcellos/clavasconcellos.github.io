@@ -41,8 +41,13 @@ function trapFocus(event) {
   if (!focusable.length) return;
   const first = focusable[0];
   const last = focusable[focusable.length - 1];
-  if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
-  else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+  if (event.shiftKey && document.activeElement === first) {
+    event.preventDefault();
+    last.focus();
+  } else if (!event.shiftKey && document.activeElement === last) {
+    event.preventDefault();
+    first.focus();
+  }
 }
 
 export function initHeader() {
@@ -53,7 +58,8 @@ export function initHeader() {
 
   /* the language and theme buttons also live in the mobile panel; the theme one gets a visible label there */
   const panelActions = document.querySelector('.panel-actions');
-  document.querySelectorAll('.actions .lang-btn, .actions .theme-btn')
+  document
+    .querySelectorAll('.actions .lang-btn, .actions .theme-btn')
     .forEach((button) => panelActions.appendChild(button.cloneNode(true)));
   const panelTheme = panelActions.querySelector('.theme-btn');
   if (panelTheme) {
@@ -63,7 +69,10 @@ export function initHeader() {
   }
 
   projectsButton.addEventListener('click', (event) => {
-    if (menuOpen()) { closeMenu(); return; }
+    if (menuOpen()) {
+      closeMenu();
+      return;
+    }
     openMenu();
     /* opened from the keyboard or a screen reader: focus the first project so Enter opens it */
     if (event.detail === 0) {
@@ -80,13 +89,24 @@ export function initHeader() {
   });
 
   menuButton.addEventListener('click', () => (panel.hidden ? openPanel() : closePanel()));
-  panel.querySelector('.panel-close').addEventListener('click', () => { closePanel(); menuButton.focus(); });
+  panel.querySelector('.panel-close').addEventListener('click', () => {
+    closePanel();
+    menuButton.focus();
+  });
   panel.addEventListener('keydown', trapFocus);
-  window.matchMedia('(min-width:900px)').addEventListener('change', (event) => { if (event.matches) closePanel(); });
+  window.matchMedia('(min-width:900px)').addEventListener('change', (event) => {
+    if (event.matches) closePanel();
+  });
 
   document.addEventListener('keydown', (event) => {
     if (event.key !== 'Escape') return;
-    if (menuOpen()) { closeMenu(); projectsButton.focus(); }
-    if (!panel.hidden) { closePanel(); menuButton.focus(); }
+    if (menuOpen()) {
+      closeMenu();
+      projectsButton.focus();
+    }
+    if (!panel.hidden) {
+      closePanel();
+      menuButton.focus();
+    }
   });
 }

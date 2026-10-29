@@ -32,9 +32,13 @@ export const getLang = () => lang;
 
 /* read the English copy from the page before anything is translated */
 function readEnglish() {
-  const keep = (key, value) => { if (!(key in EN)) EN[key] = value; };
+  const keep = (key, value) => {
+    if (!(key in EN)) EN[key] = value;
+  };
   document.querySelectorAll('[data-i18n]').forEach((el) => keep(el.dataset.i18n, el.innerHTML));
-  document.querySelectorAll('[data-i18n-aria]').forEach((el) => keep(el.dataset.i18nAria, el.getAttribute('aria-label')));
+  document
+    .querySelectorAll('[data-i18n-aria]')
+    .forEach((el) => keep(el.dataset.i18nAria, el.getAttribute('aria-label')));
   document.querySelectorAll('[data-i18n-alt]').forEach((el) => keep(el.dataset.i18nAlt, el.getAttribute('alt')));
   Object.assign(EN, EN_EXTRA);
 }
@@ -49,7 +53,9 @@ function preferredLang() {
 
 function apply() {
   root.lang = lang === 'pt' ? 'pt-BR' : 'en';
-  document.querySelectorAll('[data-i18n]').forEach((el) => { el.innerHTML = t(el.dataset.i18n); });
+  document.querySelectorAll('[data-i18n]').forEach((el) => {
+    el.innerHTML = t(el.dataset.i18n);
+  });
   document.querySelectorAll('[data-i18n-aria]').forEach((el) => el.setAttribute('aria-label', t(el.dataset.i18nAria)));
   document.querySelectorAll('[data-i18n-alt]').forEach((el) => el.setAttribute('alt', t(el.dataset.i18nAlt)));
 

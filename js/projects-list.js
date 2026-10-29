@@ -10,7 +10,10 @@ export function initProjectsList() {
     if (!visual || key === shownKey) return;
     shownKey = key;
     visual.querySelectorAll('img').forEach((img) => {
-      if (img.dataset.key !== key) { img.classList.remove('on'); return; }
+      if (img.dataset.key !== key) {
+        img.classList.remove('on');
+        return;
+      }
       img.classList.add('prep');
       img.classList.remove('on');
       void img.offsetWidth; /* commit the start position before animating */

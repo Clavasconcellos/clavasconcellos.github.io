@@ -7,10 +7,18 @@ export const darkScheme = window.matchMedia('(prefers-color-scheme: dark)');
 /* localStorage can throw (private mode, blocked storage), so every access is guarded */
 export const storage = {
   get(key) {
-    try { return localStorage.getItem(key); } catch { return null; }
+    try {
+      return localStorage.getItem(key);
+    } catch {
+      return null;
+    }
   },
   set(key, value) {
-    try { localStorage.setItem(key, value); } catch { /* not saved, nothing else to do */ }
+    try {
+      localStorage.setItem(key, value);
+    } catch {
+      /* not saved, nothing else to do */
+    }
   },
 };
 

@@ -1,69 +1,304 @@
 /* Components shared across pages: background canvas, comparison slider, pause/play button, toast. */
 
 /* ---------- page background (WebGL canvas; the image on <body> is the fallback) ---------- */
-#leaf-bg{ position:fixed; inset:0; width:100%; height:100%; z-index:-1; display:block; pointer-events:none; }
-#leaf-bg[hidden]{ display:none; }
+#leaf-bg {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  display: block;
+  pointer-events: none;
+}
+#leaf-bg[hidden] {
+  display: none;
+}
 
 /* ---------- before/after comparison slider (Passiflora "comparison slider") ---------- */
-.compare{ --pos:50%; border-radius:16px; overflow:hidden; isolation:isolate; touch-action:pan-y; cursor:ew-resize; user-select:none; -webkit-user-select:none; }
-.compare .layer{ position:absolute; inset:0; width:100%; height:100%; max-width:none; object-fit:contain; pointer-events:none; -webkit-user-drag:none; }
+.compare {
+  --pos: 50%;
+  border-radius: 16px;
+  overflow: hidden;
+  isolation: isolate;
+  touch-action: pan-y;
+  cursor: ew-resize;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.compare .layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: contain;
+  pointer-events: none;
+  -webkit-user-drag: none;
+}
 /* each layer shows only its own side, so neither bleeds through the other */
-.compare .layer.before{ clip-path:inset(0 calc(100% - var(--pos)) 0 0); }
-.compare .layer.after{ clip-path:inset(0 0 0 var(--pos)); }
-.compare .divider{ position:absolute; top:0; bottom:0; left:var(--pos); width:1px; transform:translateX(-.5px); background:var(--menu-border); pointer-events:none; }
+.compare .layer.before {
+  clip-path: inset(0 calc(100% - var(--pos)) 0 0);
+}
+.compare .layer.after {
+  clip-path: inset(0 0 0 var(--pos));
+}
+.compare .divider {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--pos);
+  width: 1px;
+  transform: translateX(-0.5px);
+  background: var(--menu-border);
+  pointer-events: none;
+}
 /* handle: Passiflora icon button, alternative, primary, large (48px) */
-.compare .handle{ position:absolute; top:50%; left:var(--pos); width:48px; height:48px; transform:translate(-50%,-50%); display:grid; place-items:center;
-  border-radius:999px; background:var(--btn-bg); color:var(--btn-fg); transition:background-color .15s ease-out; pointer-events:none; }
-.compare .handle svg{ width:24px; height:24px; }
-.compare:hover .handle{ background:var(--mb-hover); }
-.compare.dragging .handle{ background:linear-gradient(var(--mb-press), var(--mb-press)) var(--mb-hover); }
-.compare:has(input:focus-visible) .handle{ outline:2px solid var(--focus); outline-offset:0; }
+.compare .handle {
+  position: absolute;
+  top: 50%;
+  left: var(--pos);
+  width: 48px;
+  height: 48px;
+  transform: translate(-50%, -50%);
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  transition: background-color 0.15s ease-out;
+  pointer-events: none;
+}
+.compare .handle svg {
+  width: 24px;
+  height: 24px;
+}
+.compare:hover .handle {
+  background: var(--mb-hover);
+}
+.compare.dragging .handle {
+  background: linear-gradient(var(--mb-press), var(--mb-press)) var(--mb-hover);
+}
+.compare:has(input:focus-visible) .handle {
+  outline: 2px solid var(--focus);
+  outline-offset: 0;
+}
 /* labels: Passiflora tag; each hides when its side is nearly closed */
-.compare .tag{ position:absolute; top:16px; display:inline-flex; align-items:center; height:28px; padding:4px 16px; border-radius:9999px;
-  background:var(--paper); color:var(--ink); font-size:10px; line-height:20px; font-weight:900; letter-spacing:.13em; text-transform:uppercase;
-  box-shadow:0 1px 3px rgba(4,8,20,.12); pointer-events:none; transition:opacity .2s ease-out; }
-.compare .tag-before{ left:16px; }
-.compare .tag-after{ right:16px; }
-.compare.hide-before .tag-before, .compare.hide-after .tag-after{ opacity:0; }
+.compare .tag {
+  position: absolute;
+  top: 16px;
+  display: inline-flex;
+  align-items: center;
+  height: 28px;
+  padding: 4px 16px;
+  border-radius: 9999px;
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 10px;
+  line-height: 20px;
+  font-weight: 900;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  box-shadow: 0 1px 3px rgba(4, 8, 20, 0.12);
+  pointer-events: none;
+  transition: opacity 0.2s ease-out;
+}
+.compare .tag-before {
+  left: 16px;
+}
+.compare .tag-after {
+  right: 16px;
+}
+.compare.hide-before .tag-before,
+.compare.hide-after .tag-after {
+  opacity: 0;
+}
 /* the native range does the keyboard and screen-reader work; pointer input is handled on the whole area */
-.compare input[type=range]{ position:absolute; inset:0; width:100%; height:100%; margin:0; opacity:0; pointer-events:none; }
+.compare input[type='range'] {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  pointer-events: none;
+}
 
 /* pause/play icon button (Passiflora icon button: alternative, primary, medium) with a right-side tooltip.
    Used on the home hero video and on each Foca strip. Hidden when the OS asks for reduced motion, since nothing moves then. */
-.motion-btn{ position:absolute; z-index:3; display:inline-grid; place-items:center; width:40px; height:40px; padding:0; border:0; border-radius:999px; background:var(--btn-bg); color:var(--btn-fg); cursor:pointer; }
-.motion-btn svg{ width:24px; height:24px; }
-.motion-btn:hover{ background:var(--mb-hover); }
-.motion-btn:active{ background:linear-gradient(var(--mb-press), var(--mb-press)) var(--mb-hover); }
-.motion-btn:focus-visible{ outline:2px solid var(--focus); outline-offset:0; }
-.motion-btn .i-play, .motion-btn[data-paused="true"] .i-pause{ display:none; }
-.motion-btn[data-paused="true"] .i-play{ display:block; }
-.motion-btn::after{ content:attr(data-tip); position:absolute; left:100%; top:50%; transform:translateY(-50%); border-left:12px solid transparent; background-clip:padding-box;
-  padding:8px 12px; border-radius:8px; background-color:var(--btn-bg); color:var(--btn-fg); font-size:14px; line-height:24px; font-weight:400; white-space:nowrap;
-  opacity:0; pointer-events:none; transition:opacity .12s ease-out; }
-.motion-btn::before{ content:""; position:absolute; left:calc(100% + 7px); top:50%; width:10px; height:10px; background:var(--btn-bg); transform:translateY(-50%) rotate(45deg); opacity:0; pointer-events:none; transition:opacity .12s ease-out; }
-.motion-btn:is(:hover, :focus-visible):not(.tip-off)::after, .motion-btn:is(:hover, :focus-visible):not(.tip-off)::before{ opacity:1; }
-.motion-btn:is(:hover, :focus-visible):not(.tip-off)::after{ pointer-events:auto; }
-@media (hover:none){ .motion-btn::after, .motion-btn::before{ display:none; } }
-@media (prefers-reduced-motion:reduce){ .motion-btn{ display:none; } }
-.featured-media .motion-btn{ top:24px; left:24px; }
-.strip .motion-btn{ top:40px; left:calc(max(0px, (100vw - var(--max)) / 2) + var(--margin)); }
+.motion-btn {
+  position: absolute;
+  z-index: 3;
+  display: inline-grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  cursor: pointer;
+}
+.motion-btn svg {
+  width: 24px;
+  height: 24px;
+}
+.motion-btn:hover {
+  background: var(--mb-hover);
+}
+.motion-btn:active {
+  background: linear-gradient(var(--mb-press), var(--mb-press)) var(--mb-hover);
+}
+.motion-btn:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 0;
+}
+.motion-btn .i-play,
+.motion-btn[data-paused='true'] .i-pause {
+  display: none;
+}
+.motion-btn[data-paused='true'] .i-play {
+  display: block;
+}
+.motion-btn::after {
+  content: attr(data-tip);
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  border-left: 12px solid transparent;
+  background-clip: padding-box;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background-color: var(--btn-bg);
+  color: var(--btn-fg);
+  font-size: 14px;
+  line-height: 24px;
+  font-weight: 400;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.12s ease-out;
+}
+.motion-btn::before {
+  content: '';
+  position: absolute;
+  left: calc(100% + 7px);
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  background: var(--btn-bg);
+  transform: translateY(-50%) rotate(45deg);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.12s ease-out;
+}
+.motion-btn:is(:hover, :focus-visible):not(.tip-off)::after,
+.motion-btn:is(:hover, :focus-visible):not(.tip-off)::before {
+  opacity: 1;
+}
+.motion-btn:is(:hover, :focus-visible):not(.tip-off)::after {
+  pointer-events: auto;
+}
+@media (hover: none) {
+  .motion-btn::after,
+  .motion-btn::before {
+    display: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .motion-btn {
+    display: none;
+  }
+}
+.featured-media .motion-btn {
+  top: 24px;
+  left: 24px;
+}
+.strip .motion-btn {
+  top: 40px;
+  left: calc(max(0px, (100vw - var(--max)) / 2) + var(--margin));
+}
 
 /* ---------- toast ---------- */
-.toast{
-  position:fixed; z-index:50; left:50%; bottom:calc(max(96px, 14vh) + env(safe-area-inset-bottom, 0px));
-  display:flex; align-items:flex-start; gap:12px; width:max-content; max-width:min(400px, calc(100vw - 32px));
-  padding:16px; border-radius:8px; background:var(--ok-bg); color:var(--ok-fg);
-  box-shadow:0 4px 4px -1px rgba(28,28,28,.10), 0 16px 24px -8px rgba(28,28,28,.18);
-  transform:translate(-50%, 48px); opacity:0; pointer-events:none;
-  transition:transform .3s cubic-bezier(.2,.8,.2,1), opacity .3s ease-out;
+.toast {
+  position: fixed;
+  z-index: 50;
+  left: 50%;
+  bottom: calc(max(96px, 14vh) + env(safe-area-inset-bottom, 0px));
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  width: max-content;
+  max-width: min(400px, calc(100vw - 32px));
+  padding: 16px;
+  border-radius: 8px;
+  background: var(--ok-bg);
+  color: var(--ok-fg);
+  box-shadow:
+    0 4px 4px -1px rgba(28, 28, 28, 0.1),
+    0 16px 24px -8px rgba(28, 28, 28, 0.18);
+  transform: translate(-50%, 48px);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1),
+    opacity 0.3s ease-out;
 }
-.toast.show{ transform:translate(-50%, 0); opacity:1; pointer-events:auto; }
-.toast svg{ width:24px; height:24px; flex:none; color:var(--ok-icon); }
-.toast b{ display:block; font-weight:700; font-variation-settings:"YTLC" 440, "wdth" 100; }
-.toast span{ display:block; overflow-wrap:anywhere; }
-.toast-text{ flex:1; min-width:0; }
-.toast-close{ flex:none; display:grid; place-items:center; width:24px; height:24px; margin-left:4px; padding:0; border:0; border-radius:999px; background:transparent; color:var(--ok-fg); cursor:pointer; }
-.toast-close svg{ width:16px; height:16px; }
-.toast-close:hover{ background:rgba(2,84,23,.10); }
-.toast-close:focus-visible{ outline:2px solid var(--focus); outline-offset:2px; }
-@media (prefers-reduced-motion:reduce){ .toast{ transition:opacity .2s; transform:translate(-50%,0); } }
+.toast.show {
+  transform: translate(-50%, 0);
+  opacity: 1;
+  pointer-events: auto;
+}
+.toast svg {
+  width: 24px;
+  height: 24px;
+  flex: none;
+  color: var(--ok-icon);
+}
+.toast b {
+  display: block;
+  font-weight: 700;
+  font-variation-settings:
+    'YTLC' 440,
+    'wdth' 100;
+}
+.toast span {
+  display: block;
+  overflow-wrap: anywhere;
+}
+.toast-text {
+  flex: 1;
+  min-width: 0;
+}
+.toast-close {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  margin-left: 4px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ok-fg);
+  cursor: pointer;
+}
+.toast-close svg {
+  width: 16px;
+  height: 16px;
+}
+.toast-close:hover {
+  background: rgba(2, 84, 23, 0.1);
+}
+.toast-close:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .toast {
+    transition: opacity 0.2s;
+    transform: translate(-50%, 0);
+  }
+}

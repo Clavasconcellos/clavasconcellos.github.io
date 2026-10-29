@@ -13,8 +13,13 @@ function syncVideo() {
   videos.forEach((video) => {
     const visible = getComputedStyle(video).display !== 'none';
     if (visible && currentRoute() === 'home' && !reducedMotion.matches && !paused) {
-      if (video.preload === 'none') { video.preload = 'auto'; video.load(); }
-      video.play().catch(() => { /* autoplay blocked: the poster stays */ });
+      if (video.preload === 'none') {
+        video.preload = 'auto';
+        video.load();
+      }
+      video.play().catch(() => {
+        /* autoplay blocked: the poster stays */
+      });
     } else {
       video.pause();
     }
@@ -30,7 +35,8 @@ function setButton(button, isPaused) {
 
 function syncButtons() {
   document.querySelectorAll('[data-motion-toggle]').forEach((button) => setButton(button, paused));
-  document.querySelectorAll('[data-strip-toggle]')
+  document
+    .querySelectorAll('[data-strip-toggle]')
     .forEach((button) => setButton(button, button.closest('.strip').classList.contains('paused')));
 }
 
@@ -52,22 +58,27 @@ export function initMotion() {
   paused = storage.get('cpv-motion') === 'paused';
   root.toggleAttribute('data-motion-paused', paused);
 
-  document.querySelectorAll('[data-motion-toggle]').forEach((button) => button.addEventListener('click', () => {
-    paused = !paused;
-    storage.set('cpv-motion', paused ? 'paused' : 'play');
-    root.toggleAttribute('data-motion-paused', paused);
-    syncButtons();
-    syncVideo();
-    emit('cpv:motionchange', { paused });
-  }));
-  document.querySelectorAll('[data-strip-toggle]').forEach((button) => button.addEventListener('click', () => {
-    button.closest('.strip').classList.toggle('paused');
-    syncButtons();
-  }));
+  document.querySelectorAll('[data-motion-toggle]').forEach((button) =>
+    button.addEventListener('click', () => {
+      paused = !paused;
+      storage.set('cpv-motion', paused ? 'paused' : 'play');
+      root.toggleAttribute('data-motion-paused', paused);
+      syncButtons();
+      syncVideo();
+      emit('cpv:motionchange', { paused });
+    }),
+  );
+  document.querySelectorAll('[data-strip-toggle]').forEach((button) =>
+    button.addEventListener('click', () => {
+      button.closest('.strip').classList.toggle('paused');
+      syncButtons();
+    }),
+  );
 
   /* tooltip: Esc hides it without moving focus; it comes back on the next hover or focus */
   document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape') document.querySelectorAll('.motion-btn').forEach((button) => button.classList.add('tip-off'));
+    if (event.key === 'Escape')
+      document.querySelectorAll('.motion-btn').forEach((button) => button.classList.add('tip-off'));
   });
   document.querySelectorAll('.motion-btn').forEach((button) => {
     const restore = () => button.classList.remove('tip-off');

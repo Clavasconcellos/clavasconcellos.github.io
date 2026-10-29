@@ -6,7 +6,8 @@ import { root, reducedMotion, on } from './utils.js';
 const SEEDS = { home: 7, resume: 89, '3tentos': 23, bestegg: 41, tentoscap: 58, foca: 76 };
 const FRAME_MS = 33; /* about 30 frames per second is plenty for a slow sway */
 
-const VERTEX = 'attribute vec2 p; varying vec2 vUv; void main(){ vUv = p*0.5+0.5; vUv.y = 1.0 - vUv.y; gl_Position = vec4(p,0.0,1.0); }';
+const VERTEX =
+  'attribute vec2 p; varying vec2 vUv; void main(){ vUv = p*0.5+0.5; vUv.y = 1.0 - vUv.y; gl_Position = vec4(p,0.0,1.0); }';
 
 const FRAGMENT = `precision highp float;
 varying vec2 vUv;
@@ -65,7 +66,7 @@ function cssColor(name, fallback) {
   const value = getComputedStyle(root).getPropertyValue(name).trim();
   const match = value.match(/^#([0-9a-f]{6})$/i);
   const n = parseInt(match ? match[1] : fallback, 16);
-  return [(n >> 16 & 255) / 255, (n >> 8 & 255) / 255, (n & 255) / 255];
+  return [((n >> 16) & 255) / 255, ((n >> 8) & 255) / 255, (n & 255) / 255];
 }
 
 function currentSeed() {
@@ -78,7 +79,11 @@ export function initBackground() {
   const gl = canvas?.getContext('webgl', { antialias: false, premultipliedAlpha: false, preserveDrawingBuffer: false });
   if (!gl) return;
   let program;
-  try { program = createProgram(gl); } catch { return; }
+  try {
+    program = createProgram(gl);
+  } catch {
+    return;
+  }
 
   gl.useProgram(program);
   gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
@@ -87,11 +92,17 @@ export function initBackground() {
   gl.enableVertexAttribArray(position);
   gl.vertexAttribPointer(position, 2, gl.FLOAT, false, 0, 0);
   const uniform = (name) => gl.getUniformLocation(program, name);
-  const u = { base: uniform('uBase'), shade: uniform('uShade'), look: uniform('uLook'), misc: uniform('uMisc'), size: uniform('uSize') };
+  const u = {
+    base: uniform('uBase'),
+    shade: uniform('uShade'),
+    look: uniform('uLook'),
+    misc: uniform('uMisc'),
+    size: uniform('uSize'),
+  };
 
   const isStill = () => reducedMotion.matches || root.hasAttribute('data-motion-paused');
   let start = performance.now();
-  let frozenAt = 0;                               /* scene time shown while paused */
+  let frozenAt = 0; /* scene time shown while paused */
   let pausedAt = root.hasAttribute('data-motion-paused') ? start : 0;
   let colors = null;
   let seed = currentSeed();
@@ -101,17 +112,20 @@ export function initBackground() {
     const dpr = Math.min(window.devicePixelRatio || 1, moving ? 1.5 : 2); /* lighter while animating */
     const width = Math.max(1, Math.round(window.innerWidth * dpr));
     const height = Math.max(1, Math.round(window.innerHeight * dpr));
-    if (canvas.width !== width || canvas.height !== height) { canvas.width = width; canvas.height = height; }
+    if (canvas.width !== width || canvas.height !== height) {
+      canvas.width = width;
+      canvas.height = height;
+    }
     gl.viewport(0, 0, width, height);
 
     colors ??= [cssColor('--leaf-base', 'ebe9e5'), cssColor('--leaf-shade', 'd3d2ce')];
     gl.uniform3f(u.base, ...colors[0]);
     gl.uniform3f(u.shade, ...colors[1]);
-    gl.uniform4f(u.look, 0.85, 1.0, -35 * Math.PI / 180, 0.55);  /* intensity, scale, light angle, softness */
+    gl.uniform4f(u.look, 0.85, 1.0, (-35 * Math.PI) / 180, 0.55); /* intensity, scale, light angle, softness */
     if (moving) frozenAt = ((now || performance.now()) - start) / 1000;
     const time = reducedMotion.matches ? 0 : frozenAt;
-    gl.uniform4f(u.misc, time, seed, 0.01, 0.5);                 /* time, seed, grain, density */
-    gl.uniform3f(u.size, width, height, 0.6);                    /* width, height, light falloff */
+    gl.uniform4f(u.misc, time, seed, 0.01, 0.5); /* time, seed, grain, density */
+    gl.uniform3f(u.size, width, height, 0.6); /* width, height, light falloff */
     gl.drawArrays(gl.TRIANGLES, 0, 6);
   }
 
@@ -120,23 +134,34 @@ export function initBackground() {
   function loop(now) {
     frame = 0;
     if (document.hidden) return;
-    if (now - lastFrame >= FRAME_MS) { lastFrame = now; draw(now); }
+    if (now - lastFrame >= FRAME_MS) {
+      lastFrame = now;
+      draw(now);
+    }
     if (!isStill()) frame = requestAnimationFrame(loop);
   }
-  const kick = () => { if (!frame) frame = requestAnimationFrame(loop); };
+  const kick = () => {
+    if (!frame) frame = requestAnimationFrame(loop);
+  };
 
   /* colors, page or size changed: draw again (once if still, otherwise keep animating) */
   function redraw() {
     colors = null;
     seed = currentSeed();
     if (isStill()) requestAnimationFrame(draw);
-    else { lastFrame = 0; kick(); }
+    else {
+      lastFrame = 0;
+      kick();
+    }
   }
 
   function onMotionChange({ detail }) {
     if (detail.paused) {
       pausedAt = performance.now();
-      if (frame) { cancelAnimationFrame(frame); frame = 0; }
+      if (frame) {
+        cancelAnimationFrame(frame);
+        frame = 0;
+      }
     } else {
       if (pausedAt) start += performance.now() - pausedAt; /* resume where it stopped */
       pausedAt = 0;
@@ -150,8 +175,13 @@ export function initBackground() {
   on('cpv:themechange', redraw);
   on('cpv:routechange', redraw);
   on('cpv:motionchange', onMotionChange);
-  document.addEventListener('visibilitychange', () => { if (!document.hidden) kick(); });
-  canvas.addEventListener('webglcontextlost', (event) => { event.preventDefault(); canvas.hidden = true; });
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) kick();
+  });
+  canvas.addEventListener('webglcontextlost', (event) => {
+    event.preventDefault();
+    canvas.hidden = true;
+  });
 
   draw();
   kick();

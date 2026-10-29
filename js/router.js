@@ -42,8 +42,15 @@ function show(route, { focus = false } = {}) {
   const next = views[route];
 
   const swap = () => {
-    if (prev) { prev.hidden = true; prev.classList.remove('leave'); }
-    else Object.values(views).forEach((view) => { if (view !== next) view.hidden = true; });
+    if (prev) {
+      prev.hidden = true;
+      prev.classList.remove('leave');
+    } else {
+      /* first load: hide every page but the one being shown */
+      Object.values(views).forEach((view) => {
+        if (view !== next) view.hidden = true;
+      });
+    }
     next.hidden = false;
     next.classList.remove('enter');
     void next.offsetWidth; /* restart the enter animation */
@@ -67,7 +74,9 @@ function show(route, { focus = false } = {}) {
 const routeFromUrl = () => location.hash.replace('#', '');
 
 export function initRouter() {
-  document.querySelectorAll('.view').forEach((view) => { views[view.dataset.view] = view; });
+  document.querySelectorAll('.view').forEach((view) => {
+    views[view.dataset.view] = view;
+  });
 
   document.addEventListener('click', (event) => {
     const link = event.target.closest('a[data-route]');
@@ -75,7 +84,11 @@ export function initRouter() {
     event.preventDefault();
     const route = link.dataset.route;
     if (route !== current) {
-      try { history.pushState(null, '', '#' + route); } catch { /* file:// or sandboxed frames */ }
+      try {
+        history.pushState(null, '', '#' + route);
+      } catch {
+        /* file:// or sandboxed frames */
+      }
     }
     show(route, { focus: true });
   });
@@ -83,7 +96,11 @@ export function initRouter() {
   const fromUrl = () => show(routeFromUrl());
   window.addEventListener('popstate', fromUrl);
   window.addEventListener('hashchange', fromUrl);
-  try { history.scrollRestoration = 'manual'; } catch { /* not supported */ }
+  try {
+    history.scrollRestoration = 'manual';
+  } catch {
+    /* not supported */
+  }
 
   document.getElementById('skip-link').addEventListener('click', (event) => {
     event.preventDefault();
@@ -92,7 +109,9 @@ export function initRouter() {
     main.scrollIntoView({ block: 'start' });
   });
 
-  on('cpv:langchange', () => { if (current) document.title = t(TITLES[current]); });
+  on('cpv:langchange', () => {
+    if (current) document.title = t(TITLES[current]);
+  });
 
   show(routeFromUrl());
 }

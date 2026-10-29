@@ -4,10 +4,15 @@
 import { reducedMotion, on } from './utils.js';
 import { getLang } from './i18n.js';
 
-const HINT = [[0, 50], [420, 58], [900, 43], [1300, 50]]; /* [ms, position %]: 50 > 58 > 43 > 50 */
-const REVEAL_MS = 600;  /* matches .reveal.in in base.css */
+const HINT = [
+  [0, 50],
+  [420, 58],
+  [900, 43],
+  [1300, 50],
+]; /* [ms, position %]: 50 > 58 > 43 > 50 */
+const REVEAL_MS = 600; /* matches .reveal.in in base.css */
 const PAUSE_MS = 400;
-const LABEL_EDGE = 14;  /* hide a side's label when that side is under 14% wide */
+const LABEL_EDGE = 14; /* hide a side's label when that side is under 14% wide */
 
 const easeInOut = (k) => (k < 0.5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2);
 const words = () => (getLang() === 'pt' ? ['antes', 'depois'] : ['before', 'after']);
@@ -31,12 +36,15 @@ function setupSlider(box) {
 
   const fromPointer = (x) => {
     const rect = box.getBoundingClientRect();
-    return (x - rect.left) / rect.width * 100;
+    return ((x - rect.left) / rect.width) * 100;
   };
 
   function stopHint() {
     touched = true;
-    if (hintFrame) { cancelAnimationFrame(hintFrame); hintFrame = 0; }
+    if (hintFrame) {
+      cancelAnimationFrame(hintFrame);
+      hintFrame = 0;
+    }
   }
 
   box.addEventListener('pointerdown', (event) => {
@@ -55,7 +63,10 @@ function setupSlider(box) {
   };
   box.addEventListener('pointerup', release);
   box.addEventListener('pointercancel', release);
-  range.addEventListener('input', () => { stopHint(); set(Number(range.value)); });
+  range.addEventListener('input', () => {
+    stopHint();
+    set(Number(range.value));
+  });
   range.addEventListener('keydown', stopHint);
 
   function playHint() {
@@ -71,7 +82,10 @@ function setupSlider(box) {
       const k = Math.min(1, Math.max(0, (elapsed - ta) / (tb - ta)));
       set(a + (b - a) * easeInOut(k));
       if (elapsed < HINT[HINT.length - 1][0]) hintFrame = requestAnimationFrame(step);
-      else { hintFrame = 0; set(50); }
+      else {
+        hintFrame = 0;
+        set(50);
+      }
     };
     step(start);
   }
@@ -90,7 +104,10 @@ function setupSlider(box) {
       const wait = Math.max(0, revealedAt + REVEAL_MS - performance.now()) + PAUSE_MS;
       timer = setTimeout(() => {
         timer = 0;
-        if (inView) { visibility.disconnect(); playHint(); }
+        if (inView) {
+          visibility.disconnect();
+          playHint();
+        }
       }, wait);
     };
 
@@ -103,11 +120,17 @@ function setupSlider(box) {
       });
       watcher.observe(block, { attributes: true, attributeFilter: ['class'] });
     }
-    const visibility = new IntersectionObserver((entries) => {
-      inView = entries.some((entry) => entry.intersectionRatio >= 0.6);
-      if (!inView && timer) { clearTimeout(timer); timer = 0; }
-      maybePlay();
-    }, { threshold: [0, 0.6] });
+    const visibility = new IntersectionObserver(
+      (entries) => {
+        inView = entries.some((entry) => entry.intersectionRatio >= 0.6);
+        if (!inView && timer) {
+          clearTimeout(timer);
+          timer = 0;
+        }
+        maybePlay();
+      },
+      { threshold: [0, 0.6] },
+    );
     visibility.observe(box);
   }
 
