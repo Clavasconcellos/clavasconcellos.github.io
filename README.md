@@ -32,8 +32,23 @@ css/
   layout.css        header and footer
   components.css    background, comparison slider, pause button, toast
   pages.css         home, resume and case-study styles
+js/                 ES modules, loaded from js/main.js
+  main.js           entry point: starts the modules in order
+  i18n.js           English/Portuguese switching (i18n/pt.js holds the Portuguese copy)
+  router.js         pages, browser history and titles
+  header.js         Projects dropdown and mobile menu
+  theme.js          light/dark mode
+  motion.js         hero video and pause/play buttons
+  background.js     WebGL leaf-shadow background
+  compare.js        before/after sliders
+  reveal.js         scroll reveal
+  projects-list.js  home projects list hover
+  toast.js          copy-email button and its confirmation
+  utils.js          shared helpers
 assets/             images, video and icons
 ```
+
+The modules don't call each other directly. They announce changes with a few document events (`cpv:langchange`, `cpv:themechange`, `cpv:routechange`, `cpv:motionchange`) and listen for the ones they care about.
 
 Colors, spacing and components come from **Passiflora**, my design system in Figma, so the tokens in `css/tokens.css` mirror its variables.
 
