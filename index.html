@@ -72,6 +72,7 @@
   --leaf-base:#ebe9e5; --leaf-shade:#d3d2ce;
   --ok-bg:#ebfff0; --ok-fg:#025417; --ok-icon:#024011;
   --go-hover:#97d9c9; --icon-brand:#2d4d46;
+  --mb-hover:rgba(4,8,20,.5); --mb-press:rgba(16,20,32,.3);
   --logo-mark:#B0282B; --logo-word:#19294B; --be-ink:#011835; --tc-ink:#13100D; --foca-ink:#0D2148;
   /* list motion: one easing family, three durations */
   --ease-out:cubic-bezier(.22,1,.36,1); --ease-in:cubic-bezier(.4,0,1,1);
@@ -102,6 +103,7 @@
   --leaf-base:#2e313b; --leaf-shade:#1d2029;
   --ok-bg:#0e2a17; --ok-fg:#cff7d9; --ok-icon:#cff7d9;
   --go-hover:#2f7161; --icon-brand:#f9fafa;
+  --mb-hover:rgba(255,255,255,.4); --mb-press:rgba(244,245,246,.3);
   --logo-mark:#FFFFFF; --logo-word:#FFFFFF; --be-ink:#FFFFFF; --tc-ink:#FCBE0E; --foca-ink:#FFFFFF;
   --brand-fill:#c6e9e1; --brand-fill-hover:#97d9c9; --on-brand:#040814; --neutral-line:#f3f3f3;
 } }
@@ -116,6 +118,7 @@
   --leaf-base:#2e313b; --leaf-shade:#1d2029;
   --ok-bg:#0e2a17; --ok-fg:#cff7d9; --ok-icon:#cff7d9;
   --go-hover:#2f7161; --icon-brand:#f9fafa;
+  --mb-hover:rgba(255,255,255,.4); --mb-press:rgba(244,245,246,.3);
   --logo-mark:#FFFFFF; --logo-word:#FFFFFF; --be-ink:#FFFFFF; --tc-ink:#FCBE0E; --foca-ink:#FFFFFF;
   --brand-fill:#c6e9e1; --brand-fill-hover:#97d9c9; --on-brand:#040814; --neutral-line:#f3f3f3;
 }
@@ -606,16 +609,28 @@ button.link{ border:0; background:transparent; padding:0; font:inherit; font-siz
 .strip-track img{ height:250px; width:auto; max-width:none; flex:none; }
 @keyframes stripL{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
 @keyframes stripR{ from{ transform:translateX(-50%); } to{ transform:translateX(0); } }
-@media (prefers-reduced-motion:reduce){ .strip-track{ animation:none; } .strip-ctrl{ display:none; } }
-.strips-paused .strip-track{ animation-play-state:paused; }
-.strip-ctrl{ display:flex; justify-content:flex-end; padding-top:24px; }
-.strip-pause{ display:inline-flex; align-items:center; gap:8px; padding:6px 12px; border:1px solid var(--menu-border); border-radius:8px; background:transparent; color:var(--ink); font-size:14px; line-height:24px; cursor:pointer; }
-.strip-pause:hover{ background:var(--option-hover); }
-.strip-pause:focus-visible{ outline:2px solid var(--focus); outline-offset:2px; }
-.strip-pause svg{ width:16px; height:16px; }
-.strip-pause .i-play{ display:none; }
-.strip-pause[data-paused="true"] .i-pause{ display:none; }
-.strip-pause[data-paused="true"] .i-play{ display:inline; }
+@media (prefers-reduced-motion:reduce){ .strip-track{ animation:none; } }
+.strip.paused .strip-track{ animation-play-state:paused; }
+
+/* pause/play icon button (Passiflora icon button: alternative, primary, medium) with a right-side tooltip.
+   Used on the home hero video and on each Foca strip. Hidden when the OS asks for reduced motion, since nothing moves then. */
+.motion-btn{ position:absolute; z-index:3; display:inline-grid; place-items:center; width:40px; height:40px; padding:0; border:0; border-radius:999px; background:var(--btn-bg); color:var(--btn-fg); cursor:pointer; }
+.motion-btn svg{ width:24px; height:24px; }
+.motion-btn:hover{ background:var(--mb-hover); }
+.motion-btn:active{ background:linear-gradient(var(--mb-press), var(--mb-press)) var(--mb-hover); }
+.motion-btn:focus-visible{ outline:2px solid var(--focus); outline-offset:0; }
+.motion-btn .i-play, .motion-btn[data-paused="true"] .i-pause{ display:none; }
+.motion-btn[data-paused="true"] .i-play{ display:block; }
+.motion-btn::after{ content:attr(data-tip); position:absolute; left:100%; top:50%; transform:translateY(-50%); border-left:12px solid transparent; background-clip:padding-box;
+  padding:8px 12px; border-radius:8px; background-color:var(--btn-bg); color:var(--btn-fg); font-size:14px; line-height:24px; font-weight:400; white-space:nowrap;
+  opacity:0; pointer-events:none; transition:opacity .12s ease-out; }
+.motion-btn::before{ content:""; position:absolute; left:calc(100% + 7px); top:50%; width:10px; height:10px; background:var(--btn-bg); transform:translateY(-50%) rotate(45deg); opacity:0; pointer-events:none; transition:opacity .12s ease-out; }
+.motion-btn:is(:hover, :focus-visible):not(.tip-off)::after, .motion-btn:is(:hover, :focus-visible):not(.tip-off)::before{ opacity:1; }
+.motion-btn:is(:hover, :focus-visible):not(.tip-off)::after{ pointer-events:auto; }
+@media (hover:none){ .motion-btn::after, .motion-btn::before{ display:none; } }
+@media (prefers-reduced-motion:reduce){ .motion-btn{ display:none; } }
+.featured-media .motion-btn{ top:24px; left:24px; }
+.strip .motion-btn{ top:40px; left:calc(max(0px, (100vw - var(--max)) / 2) + var(--margin)); }
 .strip-copy{ max-width:751px; padding-top:64px; display:flex; flex-direction:column; gap:20px; }
 .strip-copy p{ color:var(--ink-85); }
 .rd-sub{ max-width:1136px; margin-top:16px; color:var(--ink-85); }
@@ -770,6 +785,7 @@ button.link{ border:0; background:transparent; padding:0; font:inherit; font-siz
       </div>
     </div>
     <div class="featured-media">
+      <button type="button" class="motion-btn" data-motion-toggle data-paused="false" aria-label="Pause animation" data-tip="Pause animation"><svg class="i-pause" viewBox="0 0 48 48" aria-hidden="true" focusable="false"><path d="M19.6928 9.41494C19.6927 8.20108 19.4292 7.75302 19.2221 7.558C18.9914 7.34085 18.4517 7.07724 17.1067 7.07724H9.66097C8.31717 7.0773 7.77856 7.34095 7.54763 7.558C7.34057 7.75302 7.07699 8.20108 7.07689 9.41494V38.5851C7.07699 39.7989 7.34057 40.247 7.54763 40.442C7.77856 40.659 8.31717 40.9227 9.66097 40.9228H17.1067C18.4517 40.9228 18.9914 40.6592 19.2221 40.442C19.4292 40.247 19.6927 39.7989 19.6928 38.5851V9.41494ZM22.7697 38.5851C22.7696 40.1396 22.4472 41.6306 21.3314 42.6815C20.239 43.7103 18.715 43.9996 17.1067 43.9996H9.66097C8.05308 43.9996 6.5306 43.7099 5.4383 42.6815C4.32252 41.6306 4.00012 40.1396 4.00002 38.5851V9.41494C4.00012 7.86042 4.32252 6.36937 5.4383 5.31846C6.5306 4.29011 8.05308 4.00043 9.66097 4.00038H17.1067C18.715 4.00038 20.239 4.28969 21.3314 5.31846C22.4472 6.36937 22.7696 7.86042 22.7697 9.41494V38.5851Z" fill="currentColor"/><path d="M40.9232 9.41494C40.9231 8.20108 40.6595 7.75302 40.4524 7.558C40.2217 7.34085 39.6821 7.07724 38.3371 7.07724H30.8913C29.5595 7.0773 29.0169 7.3396 28.782 7.56C28.5716 7.75748 28.3073 8.20781 28.3072 9.41494V38.5851C28.3073 39.7989 28.5709 40.247 28.778 40.442C29.0089 40.6591 29.5475 40.9227 30.8913 40.9228H38.3371C39.6821 40.9228 40.2217 40.6592 40.4524 40.442C40.6595 40.247 40.9231 39.7989 40.9232 38.5851V9.41494ZM44 38.5851C43.9999 40.1396 43.6775 41.6306 42.5617 42.6815C41.4693 43.7103 39.9454 43.9996 38.3371 43.9996H30.8913C29.2834 43.9996 27.7609 43.7099 26.6686 42.6815C25.5528 41.6306 25.2304 40.1396 25.2303 38.5851V9.41494C25.2304 7.85398 25.5611 6.36498 26.6786 5.31646C27.7717 4.2914 29.2907 4.00043 30.8913 4.00038H38.3371C39.9454 4.00038 41.4693 4.28969 42.5617 5.31846C43.6775 6.36937 43.9999 7.86042 44 9.41494V38.5851Z" fill="currentColor"/></svg><svg class="i-play" viewBox="0 0 48 48" aria-hidden="true" focusable="false"><path d="M11.5803 4.28584C15.143 2.22759 19.76 2.67896 24.4113 5.36283L38.4055 13.4237C43.0572 16.1078 45.7605 19.8828 45.7609 23.999C45.7609 27.8583 43.3851 31.4174 39.2547 34.059L38.4055 34.5742L24.4091 42.6351L24.4113 42.6373C19.7602 45.321 15.1429 45.7724 11.5803 43.7143C8.01778 41.6559 6.10253 37.4298 6.10244 32.062V15.9381C6.10244 10.5701 8.0177 6.34429 11.5803 4.28584ZM9.49927 32.062C9.49936 36.7031 11.129 39.5309 13.2787 40.773C15.4281 42.015 18.6912 42.0143 22.7129 39.6938L36.7093 31.6308C40.7295 29.3106 42.3641 26.4834 42.3641 23.999C42.3637 21.6697 40.9274 19.0386 37.4347 16.8072L36.7093 16.3671L22.7151 8.3063C18.6933 5.98569 15.4282 5.98512 13.2787 7.2271C11.1291 8.46931 9.49927 11.297 9.49927 15.9381V32.062Z" fill="currentColor"/></svg></button>
       <video class="lt hero-video" poster="assets/hero-poster.jpg" muted loop playsinline preload="auto" data-i18n-aria="videoAria" aria-label="Animated walkthrough of the 3tentos redesign: the field map becomes a phone, a management plan is picked and a step added, then the Home and My Clients dashboards stretch from phone to tablet to desktop."><source src="assets/hero-motion.mp4" type="video/mp4"></video>
       <video class="dk hero-video" poster="assets/hero-poster-dark.jpg" muted loop playsinline preload="none" data-i18n-aria="videoAria" aria-label="Animated walkthrough of the 3tentos redesign: the field map becomes a phone, a management plan is picked and a step added, then the Home and My Clients dashboards stretch from phone to tablet to desktop."><source src="assets/hero-motion-dark.mp4" type="video/mp4"></video>
       <video class="alpha hero-video" muted loop playsinline preload="none" data-i18n-aria="videoAria" aria-label="Animated walkthrough of the 3tentos redesign: the field map becomes a phone, a management plan is picked and a step added, then the Home and My Clients dashboards stretch from phone to tablet to desktop."><source src="assets/hero-motion-alpha.webm" type="video/webm"></video>
@@ -1258,8 +1274,8 @@ button.link{ border:0; background:transparent; padding:0; font:inherit; font-siz
 
     <section class="chapter" aria-labelledby="fc-solution">
       <h2 class="t-h4" id="fc-solution" data-i18n="fcSolTitle">04 · Solution</h2>
-      <div class="strip-ctrl"><button type="button" class="strip-pause" id="strip-pause" data-paused="false"><svg viewBox="0 0 16 16" aria-hidden="true"><path class="i-pause" d="M5 3.5v9M11 3.5v9" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/><path class="i-play" d="M5 3.2v9.6L12.5 8z" fill="currentColor"/></svg><span class="strip-pause-label">Pause animation</span></button></div>
       <div class="strip strip-left">
+        <button type="button" class="motion-btn" data-strip-toggle data-paused="false" aria-label="Pause animation" data-tip="Pause animation"><svg class="i-pause" viewBox="0 0 48 48" aria-hidden="true" focusable="false"><path d="M19.6928 9.41494C19.6927 8.20108 19.4292 7.75302 19.2221 7.558C18.9914 7.34085 18.4517 7.07724 17.1067 7.07724H9.66097C8.31717 7.0773 7.77856 7.34095 7.54763 7.558C7.34057 7.75302 7.07699 8.20108 7.07689 9.41494V38.5851C7.07699 39.7989 7.34057 40.247 7.54763 40.442C7.77856 40.659 8.31717 40.9227 9.66097 40.9228H17.1067C18.4517 40.9228 18.9914 40.6592 19.2221 40.442C19.4292 40.247 19.6927 39.7989 19.6928 38.5851V9.41494ZM22.7697 38.5851C22.7696 40.1396 22.4472 41.6306 21.3314 42.6815C20.239 43.7103 18.715 43.9996 17.1067 43.9996H9.66097C8.05308 43.9996 6.5306 43.7099 5.4383 42.6815C4.32252 41.6306 4.00012 40.1396 4.00002 38.5851V9.41494C4.00012 7.86042 4.32252 6.36937 5.4383 5.31846C6.5306 4.29011 8.05308 4.00043 9.66097 4.00038H17.1067C18.715 4.00038 20.239 4.28969 21.3314 5.31846C22.4472 6.36937 22.7696 7.86042 22.7697 9.41494V38.5851Z" fill="currentColor"/><path d="M40.9232 9.41494C40.9231 8.20108 40.6595 7.75302 40.4524 7.558C40.2217 7.34085 39.6821 7.07724 38.3371 7.07724H30.8913C29.5595 7.0773 29.0169 7.3396 28.782 7.56C28.5716 7.75748 28.3073 8.20781 28.3072 9.41494V38.5851C28.3073 39.7989 28.5709 40.247 28.778 40.442C29.0089 40.6591 29.5475 40.9227 30.8913 40.9228H38.3371C39.6821 40.9228 40.2217 40.6592 40.4524 40.442C40.6595 40.247 40.9231 39.7989 40.9232 38.5851V9.41494ZM44 38.5851C43.9999 40.1396 43.6775 41.6306 42.5617 42.6815C41.4693 43.7103 39.9454 43.9996 38.3371 43.9996H30.8913C29.2834 43.9996 27.7609 43.7099 26.6686 42.6815C25.5528 41.6306 25.2304 40.1396 25.2303 38.5851V9.41494C25.2304 7.85398 25.5611 6.36498 26.6786 5.31646C27.7717 4.2914 29.2907 4.00043 30.8913 4.00038H38.3371C39.9454 4.00038 41.4693 4.28969 42.5617 5.31846C43.6775 6.36937 43.9999 7.86042 44 9.41494V38.5851Z" fill="currentColor"/></svg><svg class="i-play" viewBox="0 0 48 48" aria-hidden="true" focusable="false"><path d="M11.5803 4.28584C15.143 2.22759 19.76 2.67896 24.4113 5.36283L38.4055 13.4237C43.0572 16.1078 45.7605 19.8828 45.7609 23.999C45.7609 27.8583 43.3851 31.4174 39.2547 34.059L38.4055 34.5742L24.4091 42.6351L24.4113 42.6373C19.7602 45.321 15.1429 45.7724 11.5803 43.7143C8.01778 41.6559 6.10253 37.4298 6.10244 32.062V15.9381C6.10244 10.5701 8.0177 6.34429 11.5803 4.28584ZM9.49927 32.062C9.49936 36.7031 11.129 39.5309 13.2787 40.773C15.4281 42.015 18.6912 42.0143 22.7129 39.6938L36.7093 31.6308C40.7295 29.3106 42.3641 26.4834 42.3641 23.999C42.3637 21.6697 40.9274 19.0386 37.4347 16.8072L36.7093 16.3671L22.7151 8.3063C18.6933 5.98569 15.4282 5.98512 13.2787 7.2271C11.1291 8.46931 9.49927 11.297 9.49927 15.9381V32.062Z" fill="currentColor"/></svg></button>
         <div class="strip-track"><img src="assets/foca-strip-paper.webp" data-i18n-alt="fcAltPaper" alt="Twenty paper prototype screens." width="3160" height="250" loading="lazy"><img src="assets/foca-strip-paper.webp" alt="" aria-hidden="true" width="3160" height="250" loading="lazy"></div>
       </div>
       <div class="strip-copy">
@@ -1267,6 +1283,7 @@ button.link{ border:0; background:transparent; padding:0; font:inherit; font-siz
         <p data-i18n="fcSol">The final version is a medium-fidelity Figma prototype, evolved from a paper prototype and built around two ideas: a weekly study plan based on time targets, and video lessons and content with past exams and mock tests.</p>
       </div>
       <div class="strip strip-right">
+        <button type="button" class="motion-btn" data-strip-toggle data-paused="false" aria-label="Pause animation" data-tip="Pause animation"><svg class="i-pause" viewBox="0 0 48 48" aria-hidden="true" focusable="false"><path d="M19.6928 9.41494C19.6927 8.20108 19.4292 7.75302 19.2221 7.558C18.9914 7.34085 18.4517 7.07724 17.1067 7.07724H9.66097C8.31717 7.0773 7.77856 7.34095 7.54763 7.558C7.34057 7.75302 7.07699 8.20108 7.07689 9.41494V38.5851C7.07699 39.7989 7.34057 40.247 7.54763 40.442C7.77856 40.659 8.31717 40.9227 9.66097 40.9228H17.1067C18.4517 40.9228 18.9914 40.6592 19.2221 40.442C19.4292 40.247 19.6927 39.7989 19.6928 38.5851V9.41494ZM22.7697 38.5851C22.7696 40.1396 22.4472 41.6306 21.3314 42.6815C20.239 43.7103 18.715 43.9996 17.1067 43.9996H9.66097C8.05308 43.9996 6.5306 43.7099 5.4383 42.6815C4.32252 41.6306 4.00012 40.1396 4.00002 38.5851V9.41494C4.00012 7.86042 4.32252 6.36937 5.4383 5.31846C6.5306 4.29011 8.05308 4.00043 9.66097 4.00038H17.1067C18.715 4.00038 20.239 4.28969 21.3314 5.31846C22.4472 6.36937 22.7696 7.86042 22.7697 9.41494V38.5851Z" fill="currentColor"/><path d="M40.9232 9.41494C40.9231 8.20108 40.6595 7.75302 40.4524 7.558C40.2217 7.34085 39.6821 7.07724 38.3371 7.07724H30.8913C29.5595 7.0773 29.0169 7.3396 28.782 7.56C28.5716 7.75748 28.3073 8.20781 28.3072 9.41494V38.5851C28.3073 39.7989 28.5709 40.247 28.778 40.442C29.0089 40.6591 29.5475 40.9227 30.8913 40.9228H38.3371C39.6821 40.9228 40.2217 40.6592 40.4524 40.442C40.6595 40.247 40.9231 39.7989 40.9232 38.5851V9.41494ZM44 38.5851C43.9999 40.1396 43.6775 41.6306 42.5617 42.6815C41.4693 43.7103 39.9454 43.9996 38.3371 43.9996H30.8913C29.2834 43.9996 27.7609 43.7099 26.6686 42.6815C25.5528 41.6306 25.2304 40.1396 25.2303 38.5851V9.41494C25.2304 7.85398 25.5611 6.36498 26.6786 5.31646C27.7717 4.2914 29.2907 4.00043 30.8913 4.00038H38.3371C39.9454 4.00038 41.4693 4.28969 42.5617 5.31846C43.6775 6.36937 43.9999 7.86042 44 9.41494V38.5851Z" fill="currentColor"/></svg><svg class="i-play" viewBox="0 0 48 48" aria-hidden="true" focusable="false"><path d="M11.5803 4.28584C15.143 2.22759 19.76 2.67896 24.4113 5.36283L38.4055 13.4237C43.0572 16.1078 45.7605 19.8828 45.7609 23.999C45.7609 27.8583 43.3851 31.4174 39.2547 34.059L38.4055 34.5742L24.4091 42.6351L24.4113 42.6373C19.7602 45.321 15.1429 45.7724 11.5803 43.7143C8.01778 41.6559 6.10253 37.4298 6.10244 32.062V15.9381C6.10244 10.5701 8.0177 6.34429 11.5803 4.28584ZM9.49927 32.062C9.49936 36.7031 11.129 39.5309 13.2787 40.773C15.4281 42.015 18.6912 42.0143 22.7129 39.6938L36.7093 31.6308C40.7295 29.3106 42.3641 26.4834 42.3641 23.999C42.3637 21.6697 40.9274 19.0386 37.4347 16.8072L36.7093 16.3671L22.7151 8.3063C18.6933 5.98569 15.4282 5.98512 13.2787 7.2271C11.1291 8.46931 9.49927 11.297 9.49927 15.9381V32.062Z" fill="currentColor"/></svg></button>
         <div class="strip-track"><img src="assets/foca-strip-hifi.webp" data-i18n-alt="fcAltHifi" alt="Twenty screens of the 2019 medium-fidelity prototype." width="3160" height="250" loading="lazy"><img src="assets/foca-strip-hifi.webp" alt="" aria-hidden="true" width="3160" height="250" loading="lazy"></div>
       </div>
     </section>
@@ -1841,7 +1858,7 @@ button.link{ border:0; background:transparent; padding:0; font:inherit; font-siz
       b.setAttribute('lang', lang === 'pt' ? 'en' : 'pt-BR');
     });
     syncThemeLabels();
-    if (document.getElementById('strip-pause')) document.getElementById('strip-pause').querySelector('.strip-pause-label').textContent = document.getElementById('strip-pause').dataset.paused === 'true' ? t('playAnim') : t('pauseAnim');
+    syncMotionBtns();
     document.title = titleFor(current);
   }
   document.addEventListener('click', e => {
@@ -1881,11 +1898,13 @@ button.link{ border:0; background:transparent; padding:0; font:inherit; font-siz
   const videos = [...document.querySelectorAll('.hero-video')];
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
   let current = null;
+  let motionPaused = store.get('cpv-motion') === 'paused';
+  root.toggleAttribute('data-motion-paused', motionPaused);
 
   function syncVideo(){
     videos.forEach(v => {
       const shown = getComputedStyle(v).display !== 'none';
-      if (shown && current === 'home' && !reduce.matches) { if (v.preload === 'none') { v.preload = 'auto'; v.load(); } v.play().catch(()=>{}); }
+      if (shown && current === 'home' && !reduce.matches && !motionPaused) { if (v.preload === 'none') { v.preload = 'auto'; v.load(); } v.play().catch(()=>{}); }
       else v.pause();
     });
   }
@@ -1961,9 +1980,29 @@ button.link{ border:0; background:transparent; padding:0; font:inherit; font-siz
   window.matchMedia('(min-width:900px)').addEventListener('change', e => { if (e.matches) closeMobile(); });
 
   document.getElementById('skip-link').addEventListener('click', e => { e.preventDefault(); const m=document.getElementById('main'); m.focus({preventScroll:true}); m.scrollIntoView({block:'start'}); });
-  const stripBtn = document.getElementById('strip-pause');
-  function syncStripLabel(){ const paused = stripBtn.dataset.paused === 'true'; stripBtn.querySelector('.strip-pause-label').textContent = paused ? t('playAnim') : t('pauseAnim'); }
-  stripBtn.addEventListener('click', () => { const paused = stripBtn.dataset.paused !== 'true'; stripBtn.dataset.paused = String(paused); document.getElementById('view-foca').classList.toggle('strips-paused', paused); syncStripLabel(); });
+  /* pause/play buttons: the hero one pauses the video and the leaf background (remembered per visitor);
+     each Foca strip button pauses its own strip. Label and tooltip follow the state and the language. */
+  function setMotionBtn(b, paused){
+    b.dataset.paused = String(paused);
+    const label = paused ? t('playAnim') : t('pauseAnim');
+    b.setAttribute('aria-label', label); b.dataset.tip = label;
+  }
+  function syncMotionBtns(){
+    document.querySelectorAll('[data-motion-toggle]').forEach(b => setMotionBtn(b, motionPaused));
+    document.querySelectorAll('[data-strip-toggle]').forEach(b => setMotionBtn(b, b.closest('.strip').classList.contains('paused')));
+  }
+  document.querySelectorAll('[data-motion-toggle]').forEach(b => b.addEventListener('click', () => {
+    motionPaused = !motionPaused;
+    store.set('cpv-motion', motionPaused ? 'paused' : 'play');
+    root.toggleAttribute('data-motion-paused', motionPaused);
+    syncMotionBtns(); syncVideo();
+  }));
+  document.querySelectorAll('[data-strip-toggle]').forEach(b => b.addEventListener('click', () => {
+    const s = b.closest('.strip'); s.classList.toggle('paused'); syncMotionBtns();
+  }));
+  /* tooltip: Esc hides it without moving focus; it comes back on the next hover or focus */
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') document.querySelectorAll('.motion-btn').forEach(b => b.classList.add('tip-off')); });
+  document.querySelectorAll('.motion-btn').forEach(b => { const on = () => b.classList.remove('tip-off'); b.addEventListener('mouseleave', on); b.addEventListener('blur', on); });
   const toast = document.getElementById('toast'); let toastTimer = null;
   function showToast(title, body){
     toast.querySelector('.toast-text').innerHTML = '<b></b><span></span>';
@@ -2069,11 +2108,12 @@ void main(){
   const SEEDS = { home:7, resume:89, '3tentos':23, bestegg:41, tentoscap:58, foca:76 };
   function currentSeed(){ const v=document.querySelector('.view:not([hidden])'); const k=v ? v.dataset.view : 'home'; return SEEDS[k] ?? 7; }
   const reduce=window.matchMedia('(prefers-reduced-motion: reduce)');
-  const t0=performance.now();
+  let t0=performance.now(), frozenT=0, pausedAt=root.hasAttribute('data-motion-paused') ? t0 : 0;
+  const still=()=>reduce.matches || root.hasAttribute('data-motion-paused');
   let colors=null, seed=currentSeed();
   function readColors(){ colors=[hex('--leaf-base','ebe9e5'), hex('--leaf-shade','d3d2ce')]; }
   function draw(now){
-    const moving=!reduce.matches;
+    const moving=!still();
     const dpr=Math.min(window.devicePixelRatio||1, moving ? 1.5 : 2);
     const w=Math.max(1,Math.round(window.innerWidth*dpr)), h=Math.max(1,Math.round(window.innerHeight*dpr));
     if (canvas.width!==w || canvas.height!==h){ canvas.width=w; canvas.height=h; }
@@ -2081,7 +2121,7 @@ void main(){
     if (!colors) readColors();
     gl.uniform3f(uBase,colors[0][0],colors[0][1],colors[0][2]); gl.uniform3f(uShade,colors[1][0],colors[1][1],colors[1][2]);
     gl.uniform4f(uLook, 0.85, 1.0, -35*Math.PI/180, 0.55);
-    const t = moving ? ((now||performance.now())-t0)/1000 : 0;
+    const t = reduce.matches ? 0 : moving ? (frozenT = ((now||performance.now())-t0)/1000) : frozenT;
     gl.uniform4f(uMisc, t, seed, 0.01, 0.5);
     gl.uniform3f(uSize, w, h, 0.6);
     gl.drawArrays(gl.TRIANGLES,0,6);
@@ -2092,15 +2132,17 @@ void main(){
     raf=0;
     if (document.hidden) return;
     if (now-last >= 33){ last=now; draw(now); }
-    if (!reduce.matches) raf=requestAnimationFrame(loop);
+    if (!still()) raf=requestAnimationFrame(loop);
   }
   function kick(){ if (!raf) raf=requestAnimationFrame(loop); }
-  function redraw(){ colors=null; seed=currentSeed(); if (reduce.matches) requestAnimationFrame(draw); else { last=0; kick(); } }
+  function redraw(){ colors=null; seed=currentSeed(); if (still()) requestAnimationFrame(draw); else { last=0; kick(); } }
   window.addEventListener('resize', redraw);
   const mq=window.matchMedia('(prefers-color-scheme: dark)');
   mq.addEventListener && mq.addEventListener('change', redraw);
   reduce.addEventListener && reduce.addEventListener('change', redraw);
   new MutationObserver(redraw).observe(root, { attributes:true, attributeFilter:['data-theme'] });
+  new MutationObserver(() => { if (root.hasAttribute('data-motion-paused')) { pausedAt=performance.now(); if (raf){ cancelAnimationFrame(raf); raf=0; } } else { if (pausedAt) t0 += performance.now()-pausedAt; pausedAt=0; last=0; kick(); } })
+    .observe(root, { attributes:true, attributeFilter:['data-motion-paused'] });
   document.querySelectorAll('.view').forEach(v => new MutationObserver(redraw).observe(v, { attributes:true, attributeFilter:['hidden'] }));
   document.addEventListener('visibilitychange', () => { if (!document.hidden) kick(); });
   canvas.addEventListener('webglcontextlost', e => { e.preventDefault(); canvas.hidden = true; });
