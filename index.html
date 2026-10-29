@@ -356,6 +356,30 @@ html.menu-open{ overflow:hidden; }
 #leaf-bg{ position:fixed; inset:0; width:100%; height:100%; z-index:-1; display:block; pointer-events:none; }
 #leaf-bg[hidden]{ display:none; }
 
+/* ---------- before/after comparison slider (Passiflora "comparison slider") ---------- */
+.compare{ --pos:50%; border-radius:16px; overflow:hidden; isolation:isolate; touch-action:pan-y; cursor:ew-resize; user-select:none; -webkit-user-select:none; }
+.compare .layer{ position:absolute; inset:0; width:100%; height:100%; max-width:none; object-fit:contain; pointer-events:none; -webkit-user-drag:none; }
+/* each layer shows only its own side, so neither bleeds through the other */
+.compare .layer.before{ clip-path:inset(0 calc(100% - var(--pos)) 0 0); }
+.compare .layer.after{ clip-path:inset(0 0 0 var(--pos)); }
+.compare .divider{ position:absolute; top:0; bottom:0; left:var(--pos); width:1px; transform:translateX(-.5px); background:var(--menu-border); pointer-events:none; }
+/* handle: Passiflora icon button, alternative, primary, large (48px) */
+.compare .handle{ position:absolute; top:50%; left:var(--pos); width:48px; height:48px; transform:translate(-50%,-50%); display:grid; place-items:center;
+  border-radius:999px; background:var(--btn-bg); color:var(--btn-fg); transition:background-color .15s ease-out; pointer-events:none; }
+.compare .handle svg{ width:24px; height:24px; }
+.compare:hover .handle{ background:var(--mb-hover); }
+.compare.dragging .handle{ background:linear-gradient(var(--mb-press), var(--mb-press)) var(--mb-hover); }
+.compare:has(input:focus-visible) .handle{ outline:2px solid var(--focus); outline-offset:0; }
+/* labels: Passiflora tag; each hides when its side is nearly closed */
+.compare .tag{ position:absolute; top:16px; display:inline-flex; align-items:center; height:28px; padding:4px 16px; border-radius:9999px;
+  background:var(--paper); color:var(--ink); font-size:10px; line-height:20px; font-weight:900; letter-spacing:.13em; text-transform:uppercase;
+  box-shadow:0 1px 3px rgba(4,8,20,.12); pointer-events:none; transition:opacity .2s ease-out; }
+.compare .tag-before{ left:16px; }
+.compare .tag-after{ right:16px; }
+.compare.hide-before .tag-before, .compare.hide-after .tag-after{ opacity:0; }
+/* the native range does the keyboard and screen-reader work; pointer input is handled on the whole area */
+.compare input[type=range]{ position:absolute; inset:0; width:100%; height:100%; margin:0; opacity:0; pointer-events:none; }
+
 /* ---------- scroll reveal (added by script only, so content is visible without it) ---------- */
 .reveal{ opacity:0; transform:translateY(16px); }
 .reveal.reveal-media{ transform:translateY(16px) scale(1.02); }
@@ -972,7 +996,7 @@ button.link{ border:0; background:transparent; padding:0; font:inherit; font-siz
 
       <div class="feature">
         <div class="media-col">
-          <div class="media"><img src="assets/3tentos-pap.webp" data-i18n-alt="altPap" alt="Four grayscale layout studies for the plan, with the vertical rail chosen, next to the final plan preview on desktop." style="left:0;top:0;width:100%" width="736" height="552"></div>
+          <div class="media compare" data-compare><img class="layer after lt" src="assets/3tentos-pap-after.webp" alt="" width="1472" height="1104" loading="lazy" decoding="async" draggable="false"><img class="layer after dk" src="assets/3tentos-pap-after-dark.webp" alt="" width="1472" height="1104" loading="lazy" decoding="async" draggable="false"><img class="layer before lt" src="assets/3tentos-pap-before.webp" alt="" width="1472" height="1104" loading="lazy" decoding="async" draggable="false"><img class="layer before dk" src="assets/3tentos-pap-before-dark.webp" alt="" width="1472" height="1104" loading="lazy" decoding="async" draggable="false"><span class="tag tag-before" aria-hidden="true" data-i18n="cmpBefore">Before</span><span class="tag tag-after" aria-hidden="true" data-i18n="cmpAfter">After</span><span class="divider" aria-hidden="true"></span><span class="handle" aria-hidden="true"><svg viewBox="0 0 48 48" focusable="false"><path d="M27.4201 12.5859C28.2012 11.8049 29.4672 11.8049 30.2483 12.5859L40.2482 22.5859C41.0293 23.367 41.0293 24.633 40.2482 25.414L30.2483 35.414C29.4672 36.1951 28.2012 36.1951 27.4201 35.414C26.6391 34.633 26.6391 33.367 27.4201 32.5859L36.0061 24L27.4201 15.414C26.6391 14.633 26.6391 13.367 27.4201 12.5859Z" fill="currentColor"/><path d="M17.7518 12.5859C18.5328 11.8049 19.7988 11.8049 20.5799 12.5859C21.3609 13.367 21.3609 14.633 20.5799 15.414L11.9939 24L20.5799 32.5859C21.3609 33.367 21.3609 34.633 20.5799 35.414C19.7988 36.1951 18.5328 36.1951 17.7518 35.414L7.75175 25.414C6.9707 24.633 6.9707 23.367 7.75175 22.5859L17.7518 12.5859Z" fill="currentColor"/></svg></span><input type="range" min="0" max="100" step="1" value="50" aria-label="Compare before and after" data-i18n-aria="cmpAria" aria-describedby="cmp-altPap"><p class="visually-hidden" id="cmp-altPap" data-i18n="altPap">altPap</p></div>
           <p class="t-caption" data-i18n="f3cap">Left: the four grayscale wireframes, with the vertical rail chosen. Right: the final plan preview on desktop.</p>
         </div>
         <div class="copy-col">
@@ -1140,7 +1164,7 @@ button.link{ border:0; background:transparent; padding:0; font:inherit; font-siz
       <h2 class="t-h4" id="tc-solution" data-i18n="soTitle">03 · Solution</h2>
 
       <div class="feature">
-        <div class="media"><img class="lt" src="assets/tentoscap-billing.webp" data-i18n-alt="tcAltBill" alt="Low- and high-fidelity versions of the home dashboard, side by side, showing the soybean price and the total balance in reais and in soybean sacks. Below the total balance, the low-fidelity version shows cards offering other TentosCap products, while the high-fidelity version has buttons for more information and for blocking the card." style="left:0;top:0;width:100%" width="736" height="552"><img class="dk" src="assets/tentoscap-billing-dark.webp" data-i18n-alt="tcAltBill" alt="Low- and high-fidelity versions of the home dashboard, side by side, showing the soybean price and the total balance in reais and in soybean sacks. Below the total balance, the low-fidelity version shows cards offering other TentosCap products, while the high-fidelity version has buttons for more information and for blocking the card." style="left:0;top:0;width:100%" width="736" height="552"></div>
+        <div class="media compare" data-compare><img class="layer after lt" src="assets/tentoscap-billing-after.webp" alt="" width="1472" height="1104" loading="lazy" decoding="async" draggable="false"><img class="layer after dk" src="assets/tentoscap-billing-after-dark.webp" alt="" width="1472" height="1104" loading="lazy" decoding="async" draggable="false"><img class="layer before lt" src="assets/tentoscap-billing-before.webp" alt="" width="1472" height="1104" loading="lazy" decoding="async" draggable="false"><img class="layer before dk" src="assets/tentoscap-billing-before-dark.webp" alt="" width="1472" height="1104" loading="lazy" decoding="async" draggable="false"><span class="tag tag-before" aria-hidden="true" data-i18n="cmpBefore">Before</span><span class="tag tag-after" aria-hidden="true" data-i18n="cmpAfter">After</span><span class="divider" aria-hidden="true"></span><span class="handle" aria-hidden="true"><svg viewBox="0 0 48 48" focusable="false"><path d="M27.4201 12.5859C28.2012 11.8049 29.4672 11.8049 30.2483 12.5859L40.2482 22.5859C41.0293 23.367 41.0293 24.633 40.2482 25.414L30.2483 35.414C29.4672 36.1951 28.2012 36.1951 27.4201 35.414C26.6391 34.633 26.6391 33.367 27.4201 32.5859L36.0061 24L27.4201 15.414C26.6391 14.633 26.6391 13.367 27.4201 12.5859Z" fill="currentColor"/><path d="M17.7518 12.5859C18.5328 11.8049 19.7988 11.8049 20.5799 12.5859C21.3609 13.367 21.3609 14.633 20.5799 15.414L11.9939 24L20.5799 32.5859C21.3609 33.367 21.3609 34.633 20.5799 35.414C19.7988 36.1951 18.5328 36.1951 17.7518 35.414L7.75175 25.414C6.9707 24.633 6.9707 23.367 7.75175 22.5859L17.7518 12.5859Z" fill="currentColor"/></svg></span><input type="range" min="0" max="100" step="1" value="50" aria-label="Compare before and after" data-i18n-aria="cmpAria" aria-describedby="cmp-tcAltBill"><p class="visually-hidden" id="cmp-tcAltBill" data-i18n="tcAltBill">tcAltBill</p></div>
         <div class="copy-col">
           <h3 class="t-h5" data-i18n="tcF1t">Billing on harvest time</h3>
           <p data-i18n="tcF1">Statements are issued monthly, but the full balance is paid once a year at the end of the harvest, with the due date fixed on May 31, tied to the soybean harvest. The home dashboard shows the balance in reais and in soybean sacks, so farmers no longer have to do the math themselves.</p>
@@ -1152,7 +1176,7 @@ button.link{ border:0; background:transparent; padding:0; font:inherit; font-siz
           <h3 class="t-h5" data-i18n="tcF2t">Onboarding that doesn’t stall</h3>
           <p data-i18n="tcF2">Registration was the largest flow: personal info, password creation and KYC steps, with a manual review by the TentosCap team in their backoffice tool whenever document recognition failed, so no one got stuck.</p>
         </div>
-        <div class="media"><img class="lt" src="assets/tentoscap-onboarding.webp" data-i18n-alt="tcAltOnb" alt="Registration screens: farm data with crop selection, and the review of personal data." style="left:0;top:0;width:100%" width="736" height="552"><img class="dk" src="assets/tentoscap-onboarding-dark.webp" data-i18n-alt="tcAltOnb" alt="Registration screens: farm data with crop selection, and the review of personal data." style="left:0;top:0;width:100%" width="736" height="552"></div>
+        <div class="media compare" data-compare><img class="layer after lt" src="assets/tentoscap-onboarding-after.webp" alt="" width="1472" height="1104" loading="lazy" decoding="async" draggable="false"><img class="layer after dk" src="assets/tentoscap-onboarding-after-dark.webp" alt="" width="1472" height="1104" loading="lazy" decoding="async" draggable="false"><img class="layer before lt" src="assets/tentoscap-onboarding-before.webp" alt="" width="1472" height="1104" loading="lazy" decoding="async" draggable="false"><img class="layer before dk" src="assets/tentoscap-onboarding-before-dark.webp" alt="" width="1472" height="1104" loading="lazy" decoding="async" draggable="false"><span class="tag tag-before" aria-hidden="true" data-i18n="cmpBefore">Before</span><span class="tag tag-after" aria-hidden="true" data-i18n="cmpAfter">After</span><span class="divider" aria-hidden="true"></span><span class="handle" aria-hidden="true"><svg viewBox="0 0 48 48" focusable="false"><path d="M27.4201 12.5859C28.2012 11.8049 29.4672 11.8049 30.2483 12.5859L40.2482 22.5859C41.0293 23.367 41.0293 24.633 40.2482 25.414L30.2483 35.414C29.4672 36.1951 28.2012 36.1951 27.4201 35.414C26.6391 34.633 26.6391 33.367 27.4201 32.5859L36.0061 24L27.4201 15.414C26.6391 14.633 26.6391 13.367 27.4201 12.5859Z" fill="currentColor"/><path d="M17.7518 12.5859C18.5328 11.8049 19.7988 11.8049 20.5799 12.5859C21.3609 13.367 21.3609 14.633 20.5799 15.414L11.9939 24L20.5799 32.5859C21.3609 33.367 21.3609 34.633 20.5799 35.414C19.7988 36.1951 18.5328 36.1951 17.7518 35.414L7.75175 25.414C6.9707 24.633 6.9707 23.367 7.75175 22.5859L17.7518 12.5859Z" fill="currentColor"/></svg></span><input type="range" min="0" max="100" step="1" value="50" aria-label="Compare before and after" data-i18n-aria="cmpAria" aria-describedby="cmp-tcAltOnb"><p class="visually-hidden" id="cmp-tcAltOnb" data-i18n="tcAltOnb">tcAltOnb</p></div>
       </div>
 
       <div class="feature">
@@ -1823,7 +1847,7 @@ button.link{ border:0; background:transparent; padding:0; font:inherit; font-siz
     rv_more_2_t:"Prêmios",
     rv_more_2_d:"Reconhecimento",
     rv_more_2_0:"Medalha de Ouro, Categoria Sênior, ONU Social Challenge Hackathon (ESPM Reload × UNESCO), out/2020, pelo “Enlace”, uma plataforma acessível para idosos sobre intimidade na terceira idade, construída no WhatsApp.",
-    toDark:'Mudar para o modo escuro', pauseAnim:'Pausar animação', playAnim:'Retomar animação', toLight:'Mudar para o modo claro', darkMode:'Modo escuro', lightMode:'Modo claro', closeMenu:'Fechar menu', toOther:'View in English',
+    toDark:'Mudar para o modo escuro', cmpBefore:'Antes', cmpAfter:'Depois', cmpAria:'Comparar o antes e o depois', pauseAnim:'Pausar animação', playAnim:'Retomar animação', toLight:'Mudar para o modo claro', darkMode:'Modo escuro', lightMode:'Modo claro', closeMenu:'Fechar menu', toOther:'View in English',
     titleHome:'Clarissa Pilla Vasconcellos', title3:'3tentos · Clarissa Pilla Vasconcellos'
   };
   const ENX = { copiedT:'Email copied!', copiedB:'Paste it wherever you like.', copyFailT:'Couldn’t copy automatically', titleResume:'Resume · Clarissa Pilla Vasconcellos', titleBestegg:'Best Egg · Clarissa Pilla Vasconcellos', titleTentoscap:'TentosCap · Clarissa Pilla Vasconcellos', titleFoca:'Foca no Concurso · Clarissa Pilla Vasconcellos', toDark:'Switch to dark mode', pauseAnim:'Pause animation', playAnim:'Play animation', toLight:'Switch to light mode', darkMode:'Dark mode', lightMode:'Light mode', closeMenu:'Close menu', toOther:'Ver em português', titleHome:'Clarissa Pilla Vasconcellos', title3:'3tentos · Clarissa Pilla Vasconcellos' };
@@ -2149,6 +2173,79 @@ void main(){
   draw();
   kick();
   canvas.hidden = false;
+})();
+</script>
+<script>
+/* Before/after sliders: drag anywhere on the image, or use the arrow keys (Home and End jump to each side).
+   On first view each one nudges once, after its scroll reveal has finished. */
+(function(){
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const words = () => document.documentElement.lang.startsWith('pt') ? ['antes', 'depois'] : ['before', 'after'];
+  const boxes = [...document.querySelectorAll('[data-compare]')];
+  const setters = [];
+  boxes.forEach(box => {
+    const range = box.querySelector('input[type=range]');
+    let touched = false, hintRaf = 0, pos = 50;
+    function set(p){
+      pos = p = Math.max(0, Math.min(100, p));
+      box.style.setProperty('--pos', p + '%');
+      const w = Math.round(p), [b, a] = words();
+      range.value = w;
+      range.setAttribute('aria-valuetext', w + '% ' + b + ', ' + (100 - w) + '% ' + a);
+      box.classList.toggle('hide-before', p < 14);
+      box.classList.toggle('hide-after', p > 86);
+    }
+    setters.push(() => set(pos));
+    const fromX = x => { const r = box.getBoundingClientRect(); return (x - r.left) / r.width * 100; };
+    function stopHint(){ touched = true; if (hintRaf){ cancelAnimationFrame(hintRaf); hintRaf = 0; } }
+    box.addEventListener('pointerdown', e => {
+      if (e.button !== 0) return;
+      stopHint(); box.setPointerCapture(e.pointerId); box.classList.add('dragging'); set(fromX(e.clientX));
+    });
+    box.addEventListener('pointermove', e => { if (box.hasPointerCapture(e.pointerId)) set(fromX(e.clientX)); });
+    const end = e => { if (box.hasPointerCapture(e.pointerId)) box.releasePointerCapture(e.pointerId); box.classList.remove('dragging'); };
+    box.addEventListener('pointerup', end); box.addEventListener('pointercancel', end);
+    range.addEventListener('input', () => { stopHint(); set(+range.value); });
+    range.addEventListener('keydown', stopHint);
+
+    /* one gentle nudge (50 > 58 > 43 > 50) so people see it moves */
+    function hint(){
+      if (touched || reduce.matches) return;
+      const keys = [[0,50],[420,58],[900,43],[1300,50]], t0 = performance.now();
+      const ease = k => k < .5 ? 2*k*k : 1 - Math.pow(-2*k + 2, 2) / 2;
+      (function step(now){
+        const el = now - t0; if (touched) return;
+        let i = 1; while (i < keys.length - 1 && el > keys[i][0]) i++;
+        const [ta, a] = keys[i-1], [tb, b] = keys[i];
+        set(a + (b - a) * ease(Math.min(1, Math.max(0, (el - ta) / (tb - ta)))));
+        if (el < keys[keys.length-1][0]) hintRaf = requestAnimationFrame(step); else { hintRaf = 0; set(50); }
+      })(t0);
+    }
+    /* wait for the block's reveal (0.6s) plus a short pause, and only while the slider is well in view */
+    const REVEAL_MS = 600, PAUSE_MS = 400;
+    function armHint(){
+      if (reduce.matches || !('IntersectionObserver' in window)) return;
+      const rev = box.closest('.reveal');
+      const stamp = () => rev.classList.contains('instant') ? -Infinity : performance.now();
+      let revealedAt = !rev ? performance.now() : rev.classList.contains('in') ? stamp() : null;
+      if (rev && revealedAt === null){
+        new MutationObserver((m, mo) => { if (rev.classList.contains('in')){ mo.disconnect(); revealedAt = stamp(); maybe(); } }).observe(rev, { attributes:true, attributeFilter:['class'] });
+      }
+      let inView = false, timer = 0;
+      function maybe(){
+        if (!inView || revealedAt === null || touched || timer) return;
+        const wait = Math.max(0, revealedAt + REVEAL_MS - performance.now()) + PAUSE_MS;
+        timer = setTimeout(() => { timer = 0; if (inView) { io.disconnect(); hint(); } }, wait);
+      }
+      const io = new IntersectionObserver(es => { inView = es.some(e => e.intersectionRatio >= .6); if (!inView && timer){ clearTimeout(timer); timer = 0; } maybe(); }, { threshold:[0, .6] });
+      io.observe(box);
+    }
+    set(50);
+    /* arm once the page has parsed, so the reveal script has already marked the block */
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', armHint); else armHint();
+  });
+  /* keep the spoken value in the page language */
+  new MutationObserver(() => setters.forEach(f => f())).observe(document.documentElement, { attributes:true, attributeFilter:['lang'] });
 })();
 </script>
 <script>
