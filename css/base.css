@@ -67,7 +67,6 @@ button{ font:inherit; color:inherit; }
 /* ---------- views + page transition ---------- */
 main{ display:block; }
 .view{ display:block; }
-.view[hidden]{ display:none !important; }
 .view.enter{ animation:viewIn .32s ease-out both; }
 .view.leave{ animation:viewOut .18s ease-in both; }
 @keyframes viewIn{ from{ opacity:0; transform:translateY(12px); } to{ opacity:1; transform:none; } }
