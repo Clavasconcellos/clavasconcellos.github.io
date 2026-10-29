@@ -45,6 +45,7 @@ js/                 ES modules, loaded from js/main.js
   projects-list.js  home projects list hover
   toast.js          copy-email button and its confirmation
   utils.js          shared helpers
+assets/logos.svg    animated project logos (SVG sprite)
 assets/             images, video and icons
 ```
 
@@ -60,7 +61,15 @@ Any static server works. With Python installed:
 python3 -m http.server 8000
 ```
 
-Then open http://localhost:8000.
+Then open http://localhost:8000. A server is needed (opening `index.html` directly won't work) because the scripts are ES modules and the logos come from an SVG sprite file.
+
+## Code style
+
+Formatting follows [Prettier](https://prettier.io) with the settings in `.prettierrc.json`, and `.editorconfig` keeps editors consistent. Prettier is only a formatter, so the site doesn't depend on it. To format everything:
+
+```sh
+npx prettier@3.3.3 --write .
+```
 
 ## License
 
