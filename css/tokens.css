@@ -1,0 +1,235 @@
+/* Design tokens: Passiflora colors, spacing, type and motion, with the light and dark values.
+   Everything else reads these variables, so a theme change only touches this file. */
+
+/* Layout: Passiflora grids. XL >= 1200 (8 cols, 64 gutter, 1136 content), L 1024-1199 (32 margin, 48 gutter),
+   M 600-1023 (32 margin, 6 cols, 48 gutter), S < 600 (24 margin, 2 cols, 40 gutter). Light/dark values from Passiflora Colors. */
+:root {
+  color-scheme: light;
+  --ink: #040814;
+  --ink-85: rgba(4, 8, 20, 0.85);
+  --ink-70: rgba(4, 8, 20, 0.7);
+  --neutral: #303030;
+  --muted: #5a5a5a;
+  --tag: #767676;
+  --brand: #2a836e;
+  --brand-line: #23957a;
+  --brand-hover: #c6e9e1;
+  --focus: #1e40af;
+  --rule: #cdcdcd;
+  --hairline: rgba(4, 8, 20, 0.16);
+  --chip: #d9d9d9;
+  --paper: #ffffff;
+  --glass: rgba(255, 255, 255, 0.55);
+  --band-light: rgba(245, 245, 245, 0.4);
+  --band-gray: rgba(217, 217, 217, 0.4);
+  --band-white: rgba(255, 255, 255, 0.4);
+  --menu-border: #aeb1b8;
+  --option-hover: #f5f5f5;
+  --check: #025417;
+  --thumb: #ffffff;
+  --thumb-2: #ffffff;
+  --bar-bg: rgba(255, 255, 255, 0.38);
+  --bar-edge: rgba(255, 255, 255, 0.65);
+  --btn-bg: #040814;
+  --btn-fg: #f4f5f6;
+  --brand-ink: #2d4d46;
+  --brand-ink-text: #2d4d46;
+  --bg-img: url('../assets/bg-texture.jpg');
+  --leaf-base: #ebe9e5;
+  --leaf-shade: #d3d2ce;
+  --ok-bg: #ebfff0;
+  --ok-fg: #025417;
+  --ok-icon: #024011;
+  --go-hover: #97d9c9;
+  --icon-brand: #2d4d46;
+  --mb-hover: rgba(4, 8, 20, 0.5);
+  --mb-press: rgba(16, 20, 32, 0.3);
+  --logo-mark: #b0282b;
+  --logo-word: #19294b;
+  --be-ink: #011835;
+  --tc-ink: #13100d;
+  --foca-ink: #0d2148;
+  /* list motion: one easing family, three durations */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --spring: linear(
+    0,
+    0.0164,
+    0.0584,
+    0.1174,
+    0.1865,
+    0.2606,
+    0.336,
+    0.41,
+    0.4807,
+    0.5468,
+    0.6077,
+    0.6629,
+    0.7125,
+    0.7565,
+    0.7952,
+    0.829,
+    0.8582,
+    0.8833,
+    0.9047,
+    0.9227,
+    0.938,
+    0.9506,
+    0.9612,
+    0.9698,
+    0.9769,
+    0.9826,
+    0.9872,
+    0.9908,
+    0.9937,
+    0.9959,
+    0.9976,
+    0.9989,
+    0.9998,
+    1.0005,
+    1.001,
+    1.0013,
+    1.0014,
+    1.0015,
+    1.0015,
+    1.0015,
+    1
+  );
+  --d-s: 200ms;
+  --d-m: 420ms;
+  --d-l: 600ms;
+  --brand-fill: #23957a;
+  --brand-fill-hover: #2f7161;
+  --on-brand: #040814;
+  --neutral-line: #303030;
+
+  --f-display: 'Reem Kufi', 'Trebuchet MS', system-ui, sans-serif;
+  --f-body: 'Nunito Sans', 'Segoe UI', system-ui, sans-serif;
+  --f-mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+
+  --max: 1200px;
+  --margin: 32px;
+  --gutter: 64px;
+  --cols: 8;
+}
+@media (max-width: 1199px) {
+  :root {
+    --gutter: 48px;
+  }
+}
+@media (max-width: 1023px) {
+  :root {
+    --cols: 6;
+  }
+}
+@media (max-width: 599px) {
+  :root {
+    --margin: 24px;
+    --gutter: 40px;
+    --cols: 2;
+  }
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    color-scheme: dark;
+    --ink: #ffffff;
+    --ink-85: rgba(255, 255, 255, 0.85);
+    --ink-70: rgba(255, 255, 255, 0.7);
+    --neutral: #e3e3e3;
+    --muted: #b2b2b2;
+    --tag: #b2b2b2;
+    --brand: #6dc8b2;
+    --brand-line: #97d9c9;
+    --brand-hover: #2d4d46;
+    --focus: #8fb8ff;
+    --rule: #767676;
+    --hairline: rgba(255, 255, 255, 0.18);
+    --chip: rgba(62, 65, 74, 0.7);
+    --paper: #040814;
+    --glass: rgba(16, 20, 32, 0.55);
+    --band-light: rgba(36, 40, 52, 0.4);
+    --band-gray: rgba(62, 65, 74, 0.4);
+    --band-white: rgba(16, 20, 32, 0.4);
+    --menu-border: #d7d8db;
+    --option-hover: #31353f;
+    --check: #cff7d9;
+    --thumb: #040814;
+    --thumb-2: #13100d;
+    --bar-bg: rgba(16, 20, 32, 0.45);
+    --bar-edge: rgba(255, 255, 255, 0.08);
+    --btn-bg: #ffffff;
+    --btn-fg: #040814;
+    --brand-ink: #f9fafa;
+    --brand-ink-text: #c6e9e1;
+    --bg-img: url('../assets/bg-texture-dark.jpg');
+    --leaf-base: #2e313b;
+    --leaf-shade: #1d2029;
+    --ok-bg: #0e2a17;
+    --ok-fg: #cff7d9;
+    --ok-icon: #cff7d9;
+    --go-hover: #2f7161;
+    --icon-brand: #f9fafa;
+    --mb-hover: rgba(255, 255, 255, 0.4);
+    --mb-press: rgba(244, 245, 246, 0.3);
+    --logo-mark: #ffffff;
+    --logo-word: #ffffff;
+    --be-ink: #ffffff;
+    --tc-ink: #fcbe0e;
+    --foca-ink: #ffffff;
+    --brand-fill: #c6e9e1;
+    --brand-fill-hover: #97d9c9;
+    --on-brand: #040814;
+    --neutral-line: #f3f3f3;
+  }
+}
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --ink: #ffffff;
+  --ink-85: rgba(255, 255, 255, 0.85);
+  --ink-70: rgba(255, 255, 255, 0.7);
+  --neutral: #e3e3e3;
+  --muted: #b2b2b2;
+  --tag: #b2b2b2;
+  --brand: #6dc8b2;
+  --brand-line: #97d9c9;
+  --brand-hover: #2d4d46;
+  --focus: #8fb8ff;
+  --rule: #767676;
+  --hairline: rgba(255, 255, 255, 0.18);
+  --chip: rgba(62, 65, 74, 0.7);
+  --paper: #040814;
+  --glass: rgba(16, 20, 32, 0.55);
+  --band-light: rgba(36, 40, 52, 0.4);
+  --band-gray: rgba(62, 65, 74, 0.4);
+  --band-white: rgba(16, 20, 32, 0.4);
+  --menu-border: #d7d8db;
+  --option-hover: #31353f;
+  --check: #cff7d9;
+  --thumb: #040814;
+  --thumb-2: #13100d;
+  --bar-bg: rgba(16, 20, 32, 0.45);
+  --bar-edge: rgba(255, 255, 255, 0.08);
+  --btn-bg: #ffffff;
+  --btn-fg: #040814;
+  --brand-ink: #f9fafa;
+  --brand-ink-text: #c6e9e1;
+  --bg-img: url('../assets/bg-texture-dark.jpg');
+  --leaf-base: #2e313b;
+  --leaf-shade: #1d2029;
+  --ok-bg: #0e2a17;
+  --ok-fg: #cff7d9;
+  --ok-icon: #cff7d9;
+  --go-hover: #2f7161;
+  --icon-brand: #f9fafa;
+  --mb-hover: rgba(255, 255, 255, 0.4);
+  --mb-press: rgba(244, 245, 246, 0.3);
+  --logo-mark: #ffffff;
+  --logo-word: #ffffff;
+  --be-ink: #ffffff;
+  --tc-ink: #fcbe0e;
+  --foca-ink: #ffffff;
+  --brand-fill: #c6e9e1;
+  --brand-fill-hover: #97d9c9;
+  --on-brand: #040814;
+  --neutral-line: #f3f3f3;
+}
