@@ -1,6 +1,6 @@
 /* Home "How I work" section: scroll-linked progress.
    Each step's bar fills while that step passes a reading line in the middle of the screen, and the green line
-   beside the step index grows from 16px to the full list as the four steps are read. The step being read is
+   beside the step index grows from nothing to the full list as the four steps are read. The step being read is
    marked with aria-current. The fills follow the scroll position directly (no animation), so they stay on with
    reduced motion; only smooth scrolling for the index links is turned off. */
 import { reducedMotion } from './utils.js';

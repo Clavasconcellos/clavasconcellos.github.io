@@ -16,6 +16,9 @@
 
 /* Featured project: follows the page grid. Desktop: text on 3 of the 8 columns, video on 5,
    inside the same 1200px content width as the other sections; the section hugs its content. */
+.featured {
+  padding-block: clamp(80px, 9vw, 128px);
+}
 .featured-grid {
   display: grid;
   grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
@@ -607,7 +610,7 @@ html.alpha-ok .featured-media video.alpha {
 .ai-rail-fill {
   position: absolute;
   inset: 0 0 auto;
-  height: calc(16px + (100% - 16px) * var(--p, 0));
+  height: calc(100% * var(--p, 0));
   background: var(--brand-line);
 }
 .ai-rail ol {
