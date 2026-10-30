@@ -7,6 +7,7 @@ Live at **[clavasconcellos.github.io](https://clavasconcellos.github.io/)**.
 
 - Six pages, each at its own address: home, `/resume/` and four case studies (`/3tentos/`, `/bestegg/`, `/tentoscap/`, `/foca/`). Old `/#3tentos`-style links redirect to the new addresses.
 - Each page has its own title, description and link-preview card; the case studies use their hero image.
+- Pages crossfade into each other with the header held in place (cross-document View Transitions in Chrome, Edge and Safari 18.2+; other browsers get a simple fade-in). Off when the system asks for reduced motion.
 - English and Brazilian Portuguese, picked from the visitor's browser language and switchable at any time.
 - Light and dark themes that follow the system setting, with a manual toggle.
 - A background of soft leaf shadows drawn live with WebGL, so it stays sharp at any screen size. A static image is used when WebGL isn't available.
