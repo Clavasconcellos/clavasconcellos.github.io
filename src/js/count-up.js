@@ -1,5 +1,5 @@
 /* About stats: numbers count up once when they scroll into view ("5 yrs", "5+"), and "Gold medal" rolls up
-   through bronze and silver like a slot machine (Figma: Portfolio Redesign 1157:94748).
+   through bronze and silver like a slot machine, and "Human & AI" rolls Human, AI, Human & AI (Figma: Portfolio Redesign 1157:94748).
    Only the moving part changes, so the text and its translation stay as they are; the roll is aria-hidden
    while a hidden copy of the final text is read out. Nothing moves with reduced motion. */
 import { reducedMotion, on } from './utils.js';
@@ -7,12 +7,17 @@ import { getLang } from './i18n.js';
 
 /* last item is the final text */
 const ROLLS = {
+  pair: {
+    en: ['Human', 'AI', 'Human & AI'],
+    pt: ['Humano', 'IA', 'Humano & IA'],
+  },
   medal: {
     en: ['Bronze medal', 'Silver medal', 'Gold medal'],
     pt: ['Medalha de bronze', 'Medalha de prata', 'Medalha de ouro'],
   },
 };
 const ROLL_STEP = 420;
+const esc = (text) => text.replace(/&/g, '&amp;').replace(/</g, '&lt;');
 
 let runId = 0;
 
@@ -63,8 +68,8 @@ function buildRoll(el) {
   const col = [...items].reverse();
   el.innerHTML =
     '<span class="roll" aria-hidden="true"><span class="roll-col">' +
-    col.map((text) => `<span>${text}</span>`).join('') +
-    `</span></span><span class="visually-hidden">${items[items.length - 1]}</span>`;
+    col.map((text) => `<span>${esc(text)}</span>`).join('') +
+    `</span></span><span class="visually-hidden">${esc(items[items.length - 1])}</span>`;
   const column = el.querySelector('.roll-col');
   column.style.transform = `translateY(-${((col.length - 1) / col.length) * 100}%)`;
   return { column, steps: col.length - 1, final: items[items.length - 1] };
