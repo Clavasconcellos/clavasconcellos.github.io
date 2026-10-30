@@ -139,7 +139,21 @@ html.alpha-ok .featured-media video.alpha {
   line-height: 1.2;
   letter-spacing: -0.02em;
 }
-.stat span {
+/* "Gold medal" rolls up through bronze and silver (js/count-up.js) */
+.stat b .roll {
+  display: block;
+  height: 1.2em;
+  overflow: hidden;
+}
+.stat b .roll-col {
+  display: block;
+  transition: transform var(--d-l) var(--spring);
+}
+.stat b .roll-col > span {
+  display: block;
+  height: 1.2em;
+}
+.stat > span {
   display: block;
   padding-top: 4px;
   font-size: 14px;
