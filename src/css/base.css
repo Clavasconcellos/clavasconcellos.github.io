@@ -216,12 +216,13 @@ button {
 /* ---------- moving between pages ----------
    Where the browser supports cross-document View Transitions (Chrome, Edge, Safari 18.2+), the old page
    crossfades into the new one while the header stays put, and the new content rises in with the load fade below.
-   Other browsers get only the rise. Only the header gets its own transition layer: a layer around the content
-   would isolate it, and the featured video's blend with the background would turn into a white box. */
+   Other browsers get only the rise. A transition layer also isolates whatever is inside it, so it sits on the
+   glass bar itself (on the header around it, the bar would have nothing to blur) and not around the content
+   (the featured video's blend with the background would turn into a white box). */
 @view-transition {
   navigation: auto;
 }
-.site-header {
+.site-header .bar {
   view-transition-name: site-header;
 }
 main {
