@@ -635,6 +635,7 @@ html.alpha-ok .featured-media video.alpha {
     padding var(--d-m) var(--ease-out);
 }
 .ai-rail a:hover {
+  padding-left: 6px;
   color: var(--brand);
 }
 .ai-rail a[aria-current] {
