@@ -1,4 +1,4 @@
-/* Pages: every page is a .view in index.html; the URL hash picks which one is shown.
+/* Pages: every page is a .view in index.html; the URL hash picks which one is shown (home has no hash).
    Each visit gets its own history entry, so the browser's Back button returns to the previous page. */
 import { reducedMotion, emit, on } from './utils.js';
 import { t } from './i18n.js';
@@ -73,6 +73,9 @@ function show(route, { focus = false } = {}) {
 
 const routeFromUrl = () => location.hash.replace('#', '');
 
+/* the home page lives at the bare address (no #home), so the link people share most stays clean */
+const urlFor = (route) => (route === 'home' ? location.pathname + location.search : '#' + route);
+
 export function initRouter() {
   document.querySelectorAll('.view').forEach((view) => {
     views[view.dataset.view] = view;
@@ -85,7 +88,7 @@ export function initRouter() {
     const route = link.dataset.route;
     if (route !== current) {
       try {
-        history.pushState(null, '', '#' + route);
+        history.pushState(null, '', urlFor(route));
       } catch {
         /* file:// or sandboxed frames */
       }
@@ -93,7 +96,17 @@ export function initRouter() {
     show(route, { focus: true });
   });
 
-  const fromUrl = () => show(routeFromUrl());
+  const fromUrl = () => {
+    /* old links to #home still work, but show the clean address */
+    if (location.hash === '#home') {
+      try {
+        history.replaceState(null, '', urlFor('home'));
+      } catch {
+        /* not supported */
+      }
+    }
+    show(routeFromUrl());
+  };
   window.addEventListener('popstate', fromUrl);
   window.addEventListener('hashchange', fromUrl);
   try {
@@ -113,5 +126,5 @@ export function initRouter() {
     if (current) document.title = t(TITLES[current]);
   });
 
-  show(routeFromUrl());
+  fromUrl();
 }
