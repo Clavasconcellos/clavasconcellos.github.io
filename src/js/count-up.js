@@ -17,6 +17,8 @@ const ROLLS = {
   },
 };
 const ROLL_STEP = 420;
+/* how long the first word stays before the roll starts, so it registers */
+const ROLL_HOLD = 600;
 const esc = (text) => text.replace(/&/g, '&amp;').replace(/</g, '&lt;');
 
 let runId = 0;
@@ -93,7 +95,7 @@ function roll(el) {
         if (id === runId) el.textContent = final;
       }, ROLL_STEP + 200);
   };
-  requestAnimationFrame(() => requestAnimationFrame(next));
+  setTimeout(next, ROLL_HOLD);
 }
 
 export function initCountUp() {
