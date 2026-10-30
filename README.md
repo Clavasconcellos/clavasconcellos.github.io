@@ -6,6 +6,7 @@ Live at **[clavasconcellos.github.io](https://clavasconcellos.github.io/)**.
 ## What's inside
 
 - Six pages, each at its own address: home, `/resume/` and four case studies (`/3tentos/`, `/bestegg/`, `/tentoscap/`, `/foca/`). Old `/#3tentos`-style links redirect to the new addresses.
+- Each page has its own title, description and link-preview card; the case studies use their hero image.
 - English and Brazilian Portuguese, picked from the visitor's browser language and switchable at any time.
 - Light and dark themes that follow the system setting, with a manual toggle.
 - A background of soft leaf shadows drawn live with WebGL, so it stays sharp at any screen size. A static image is used when WebGL isn't available.
@@ -31,7 +32,7 @@ src/
     partials/         header, footer, icon sprite and toast, shared by every page
   _data/site.js       site address and page lists used by the templates
   index.njk           home page content
-  resume.njk          one file per page; the front matter sets its address and title
+  resume.njk          one file per page; the front matter sets its address, title, description and preview image
   3tentos.njk, bestegg.njk, tentoscap.njk, foca.njk
   404.njk             shown for addresses that don't exist
   css/
