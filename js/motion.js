@@ -7,11 +7,15 @@ import { currentRoute } from './router.js';
 
 let videos = [];
 let paused = false;
+let canPlayAlpha = false;
 
-/* the hero video only plays on the home page, when it's visible and motion is allowed */
+/* The hero video only plays on the home page, when it's visible and motion is allowed.
+   All three videos start with preload="none" and their posters in data-poster, so the browser downloads
+   nothing for the two versions this visitor will never see; the visible one gets its poster and video here. */
 function syncVideo() {
   videos.forEach((video) => {
     const visible = getComputedStyle(video).display !== 'none';
+    if (visible && video.dataset.poster && !video.poster) video.poster = video.dataset.poster;
     if (visible && currentRoute() === 'home' && !reducedMotion.matches && !paused) {
       if (video.preload === 'none') {
         video.preload = 'auto';
@@ -40,19 +44,17 @@ function syncButtons() {
     .forEach((button) => setButton(button, button.closest('.strip').classList.contains('paused')));
 }
 
-/* transparent WebM (VP9 with alpha) everywhere except Safari, which plays the blended MP4s */
+/* Transparent WebM (VP9 with alpha) everywhere except Safari, which plays the blended MP4s.
+   With reduced motion the video never plays, so use the blended version there too: it has a poster
+   frame to show, while the transparent one would leave the hero empty. */
 function pickVideoFormat() {
-  const isSafari = /^((?!chrome|android|crios|fxios|edg).)*safari/i.test(navigator.userAgent);
-  const alpha = document.querySelector('.hero-video.alpha');
-  if (isSafari || !alpha || !alpha.canPlayType('video/webm; codecs="vp9"')) return;
-  root.classList.add('alpha-ok');
-  document.querySelectorAll('.hero-video.lt, .hero-video.dk').forEach((video) => {
-    video.preload = 'none';
-    video.removeAttribute('poster');
-  });
+  root.classList.toggle('alpha-ok', canPlayAlpha && !reducedMotion.matches);
 }
 
 export function initMotion() {
+  const isSafari = /^((?!chrome|android|crios|fxios|edg).)*safari/i.test(navigator.userAgent);
+  const alpha = document.querySelector('.hero-video.alpha');
+  canPlayAlpha = !isSafari && Boolean(alpha?.canPlayType('video/webm; codecs="vp9"'));
   pickVideoFormat();
   videos = [...document.querySelectorAll('.hero-video')];
   paused = storage.get('cpv-motion') === 'paused';
@@ -89,6 +91,9 @@ export function initMotion() {
   on('cpv:langchange', syncButtons);
   on('cpv:themechange', syncVideo);
   on('cpv:routechange', syncVideo);
-  reducedMotion.addEventListener('change', syncVideo);
+  reducedMotion.addEventListener('change', () => {
+    pickVideoFormat();
+    syncVideo();
+  });
   syncButtons();
 }
