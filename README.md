@@ -5,7 +5,8 @@ Live at **[clavasconcellos.github.io](https://clavasconcellos.github.io/)**.
 
 ## What's inside
 
-- Six pages in one document: home, resume and four case studies (3tentos, Best Egg, TentosCap, Foca no Concurso), switched with hash routes (`#home`, `#resume`, …) so the browser's Back button works.
+- Six pages, each at its own address: home, `/resume/` and four case studies (`/3tentos/`, `/bestegg/`, `/tentoscap/`, `/foca/`). Old `/#3tentos`-style links redirect to the new addresses.
+- Each page has its own title, description and link-preview card; the case studies use their hero image.
 - English and Brazilian Portuguese, picked from the visitor's browser language and switchable at any time.
 - Light and dark themes that follow the system setting, with a manual toggle.
 - A background of soft leaf shadows drawn live with WebGL, so it stays sharp at any screen size. A static image is used when WebGL isn't available.
@@ -22,14 +23,18 @@ Designed and checked against WCAG 2.2 AA (the WAVE checker reports no errors):
 
 ## Tech
 
-Plain HTML, CSS and JavaScript, with no framework. [Eleventy](https://www.11ty.dev) assembles the page from shared layouts and partials (so the header and footer are written once) and copies everything else as it is. What the browser receives is still plain HTML, CSS and JavaScript.
+Plain HTML, CSS and JavaScript, with no framework. [Eleventy](https://www.11ty.dev) builds each page from shared layouts and partials (so the header and footer are written once) and copies everything else as it is. What the browser receives is still plain HTML, CSS and JavaScript.
 
 ```
 src/
   _includes/
     layouts/base.njk  the document shell: head, header, main, footer
     partials/         header, footer, icon sprite and toast, shared by every page
-  index.njk           the page content
+  _data/site.js       site address and page lists used by the templates
+  index.njk           home page content
+  resume.njk          one file per page; the front matter sets its address, title, description and preview image
+  3tentos.njk, bestegg.njk, tentoscap.njk, foca.njk
+  404.njk             shown for addresses that don't exist
   css/
     tokens.css        design tokens (colors, spacing, type, motion) for light and dark
     base.css          reset, layout container, type scale, utilities
@@ -39,7 +44,7 @@ src/
   js/                 ES modules, loaded from js/main.js
     main.js           entry point: starts the modules in order
     i18n.js           English/Portuguese switching (i18n/pt.js holds the Portuguese copy)
-    router.js         pages, browser history and titles
+    page.js           which page this is, its translated title, and the skip link
     header.js         Projects dropdown and mobile menu
     theme.js          light/dark mode
     motion.js         hero video and pause/play buttons
@@ -55,7 +60,7 @@ eleventy.config.js    build settings
 .github/workflows/    builds every pull request; builds and publishes every merge to main
 ```
 
-The modules don't call each other directly. They announce changes with a few document events (`cpv:langchange`, `cpv:themechange`, `cpv:routechange`, `cpv:motionchange`) and listen for the ones they care about.
+The modules don't call each other directly. They announce changes with a few document events (`cpv:langchange`, `cpv:themechange`, `cpv:motionchange`) and listen for the ones they care about.
 
 Colors, spacing and components come from **Passiflora**, my design system in Figma, so the tokens in `src/css/tokens.css` mirror its variables.
 

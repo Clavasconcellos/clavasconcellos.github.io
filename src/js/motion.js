@@ -3,7 +3,7 @@
    each Foca strip button pauses only its own strip. Labels and tooltips follow the state and the language. */
 import { root, reducedMotion, storage, emit, on } from './utils.js';
 import { t } from './i18n.js';
-import { currentRoute } from './router.js';
+import { currentPage } from './page.js';
 
 let videos = [];
 let paused = false;
@@ -16,7 +16,7 @@ function syncVideo() {
   videos.forEach((video) => {
     const visible = getComputedStyle(video).display !== 'none';
     if (visible && video.dataset.poster && !video.poster) video.poster = video.dataset.poster;
-    if (visible && currentRoute() === 'home' && !reducedMotion.matches && !paused) {
+    if (visible && currentPage() === 'home' && !reducedMotion.matches && !paused) {
       if (video.preload === 'none') {
         video.preload = 'auto';
         video.load();
@@ -90,10 +90,10 @@ export function initMotion() {
 
   on('cpv:langchange', syncButtons);
   on('cpv:themechange', syncVideo);
-  on('cpv:routechange', syncVideo);
   reducedMotion.addEventListener('change', () => {
     pickVideoFormat();
     syncVideo();
   });
   syncButtons();
+  syncVideo();
 }

@@ -3,14 +3,14 @@
     <div class="foot-brand">
       <img
         class="logo-v lt"
-        src="assets/logo-v.png"
+        src="/assets/logo-v.png"
         alt="CPV, Clarissa Pilla Vasconcellos, Product Designer"
         width="219"
         height="145"
       />
       <img
         class="logo-v dk"
-        src="assets/logo-v-dark.png"
+        src="/assets/logo-v-dark.png"
         alt="CPV, Clarissa Pilla Vasconcellos, Product Designer"
         width="219"
         height="145"
@@ -22,9 +22,9 @@
           rel="noopener"
           aria-label="Clarissa on LinkedIn"
           data-i18n-aria="liAria"
-          ><img class="lt" src="assets/icon-linkedin.svg" alt="" width="24" height="24" /><img
+          ><img class="lt" src="/assets/icon-linkedin.svg" alt="" width="24" height="24" /><img
             class="dk"
-            src="assets/icon-linkedin-dark.svg"
+            src="/assets/icon-linkedin-dark.svg"
             alt=""
             width="24"
             height="24"
@@ -34,10 +34,10 @@
     <nav class="foot-list" aria-labelledby="foot-projects">
       <h2 id="foot-projects" data-i18n="navProjects">Projects</h2>
       <ul>
-        <li><a href="#3tentos" data-route="3tentos">3tentos</a></li>
-        <li><a href="#bestegg" data-route="bestegg">Best Egg</a></li>
-        <li><a href="#tentoscap" data-route="tentoscap">TentosCap</a></li>
-        <li><a href="#foca" data-route="foca" data-i18n="fnc">Foca no Concurso (Focus on the Exam)</a></li>
+        <li><a href="/3tentos/"{% if route == '3tentos' %} aria-current="page"{% endif %}>3tentos</a></li>
+        <li><a href="/bestegg/"{% if route == 'bestegg' %} aria-current="page"{% endif %}>Best Egg</a></li>
+        <li><a href="/tentoscap/"{% if route == 'tentoscap' %} aria-current="page"{% endif %}>TentosCap</a></li>
+        <li><a href="/foca/"{% if route == 'foca' %} aria-current="page"{% endif %} data-i18n="fnc">Foca no Concurso (Focus on the Exam)</a></li>
       </ul>
     </nav>
     <div class="foot-bottom">

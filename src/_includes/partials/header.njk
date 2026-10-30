@@ -1,10 +1,17 @@
 <header class="site-header">
   <div class="bar">
     <nav class="nav" aria-label="Main" data-i18n-aria="navMain">
-      <a class="pill" href="./" data-route="home" data-i18n="navHome">Home</a>
-      <a class="pill" href="#resume" data-route="resume" data-i18n="navResume">Resume</a>
+      <a class="pill" href="/"{% if route == 'home' %} aria-current="page"{% endif %} data-i18n="navHome">Home</a>
+      <a class="pill" href="/resume/"{% if route == 'resume' %} aria-current="page"{% endif %} data-i18n="navResume">Resume</a>
       <div class="menu-wrap">
-        <button class="pill" type="button" id="projects-btn" aria-expanded="false" aria-controls="projects-menu">
+        <button
+          class="pill"
+          type="button"
+          id="projects-btn"
+          aria-expanded="false"
+          aria-controls="projects-menu"
+          {%- if route in site.projects %} aria-current="true"{% endif %}
+        >
           <span data-i18n="navProjects">Projects</span>
           <svg class="chev chev-down" viewBox="0 0 16 16" aria-hidden="true">
             <path
@@ -22,25 +29,25 @@
         <div class="overlay" id="projects-menu">
           <ul>
             <li>
-              <a class="option" href="#3tentos" data-route="3tentos"
+              <a class="option" href="/3tentos/"{% if route == '3tentos' %} aria-current="page"{% endif %}
                 ><span>3tentos</span
                 ><svg class="check" viewBox="0 0 16 16" aria-hidden="true"><use href="#icon-check" /></svg
               ></a>
             </li>
             <li>
-              <a class="option" href="#bestegg" data-route="bestegg"
+              <a class="option" href="/bestegg/"{% if route == 'bestegg' %} aria-current="page"{% endif %}
                 ><span>Best Egg</span
                 ><svg class="check" viewBox="0 0 16 16" aria-hidden="true"><use href="#icon-check" /></svg
               ></a>
             </li>
             <li>
-              <a class="option" href="#tentoscap" data-route="tentoscap"
+              <a class="option" href="/tentoscap/"{% if route == 'tentoscap' %} aria-current="page"{% endif %}
                 ><span>TentosCap</span
                 ><svg class="check" viewBox="0 0 16 16" aria-hidden="true"><use href="#icon-check" /></svg
               ></a>
             </li>
             <li>
-              <a class="option" href="#foca" data-route="foca"
+              <a class="option" href="/foca/"{% if route == 'foca' %} aria-current="page"{% endif %}
                 ><span data-i18n="fnc">Foca no Concurso (Focus on the Exam)</span
                 ><svg class="check" viewBox="0 0 16 16" aria-hidden="true"><use href="#icon-check" /></svg
               ></a>
@@ -49,19 +56,19 @@
         </div>
       </div>
     </nav>
-    <a class="brand" href="./" data-route="home" aria-label="CPV, home" data-i18n-aria="brandHome">
+    <a class="brand" href="/" aria-label="CPV, home" data-i18n-aria="brandHome">
       <span class="full"
-        ><img class="lt" src="assets/logo-h.png" alt="" width="193" height="40" /><img
+        ><img class="lt" src="/assets/logo-h.png" alt="" width="193" height="40" /><img
           class="dk"
-          src="assets/logo-h-dark.png"
+          src="/assets/logo-h-dark.png"
           alt=""
           width="193"
           height="40"
       /></span>
       <span class="mark"
-        ><img class="lt" src="assets/logo-mark.png" alt="" width="73" height="35" /><img
+        ><img class="lt" src="/assets/logo-mark.png" alt="" width="73" height="35" /><img
           class="dk"
-          src="assets/logo-mark-dark.png"
+          src="/assets/logo-mark-dark.png"
           alt=""
           width="73"
           height="35"
@@ -135,10 +142,10 @@
   </div>
   <nav class="mobile-panel" id="mobile-panel" aria-label="Main" data-i18n-aria="navMain" hidden>
     <div class="panel-top">
-      <a class="brand-mark" href="./" data-route="home" aria-label="CPV, home" data-i18n-aria="brandHome"
-        ><img class="lt" src="assets/logo-mark.png" alt="" width="73" height="35" /><img
+      <a class="brand-mark" href="/" aria-label="CPV, home" data-i18n-aria="brandHome"
+        ><img class="lt" src="/assets/logo-mark.png" alt="" width="73" height="35" /><img
           class="dk"
-          src="assets/logo-mark-dark.png"
+          src="/assets/logo-mark-dark.png"
           alt=""
           width="73"
           height="35"
@@ -157,22 +164,22 @@
     </div>
     <ul class="panel-list">
       <li>
-        <a class="mpill" href="./" data-route="home"><span data-i18n="navHome">Home</span></a>
+        <a class="mpill" href="/"{% if route == 'home' %} aria-current="page"{% endif %}><span data-i18n="navHome">Home</span></a>
       </li>
       <li>
-        <a class="mpill" href="#resume" data-route="resume"><span data-i18n="navResume">Resume</span></a>
+        <a class="mpill" href="/resume/"{% if route == 'resume' %} aria-current="page"{% endif %}><span data-i18n="navResume">Resume</span></a>
       </li>
       <li>
-        <a class="mpill" href="#3tentos" data-route="3tentos"><span>3tentos</span></a>
+        <a class="mpill" href="/3tentos/"{% if route == '3tentos' %} aria-current="page"{% endif %}><span>3tentos</span></a>
       </li>
       <li>
-        <a class="mpill" href="#bestegg" data-route="bestegg"><span>Best Egg</span></a>
+        <a class="mpill" href="/bestegg/"{% if route == 'bestegg' %} aria-current="page"{% endif %}><span>Best Egg</span></a>
       </li>
       <li>
-        <a class="mpill" href="#tentoscap" data-route="tentoscap"><span>TentosCap</span></a>
+        <a class="mpill" href="/tentoscap/"{% if route == 'tentoscap' %} aria-current="page"{% endif %}><span>TentosCap</span></a>
       </li>
       <li>
-        <a class="mpill" href="#foca" data-route="foca"
+        <a class="mpill" href="/foca/"{% if route == 'foca' %} aria-current="page"{% endif %}
           ><span data-i18n="fnc">Foca no Concurso (Focus on the Exam)</span></a
         >
       </li>

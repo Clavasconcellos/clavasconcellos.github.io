@@ -23,7 +23,7 @@ export const storage = {
 };
 
 /* Modules talk through a few document events instead of importing each other:
-   cpv:langchange, cpv:themechange, cpv:routechange, cpv:motionchange */
+   cpv:langchange, cpv:themechange, cpv:motionchange */
 export function emit(name, detail = {}) {
   document.dispatchEvent(new CustomEvent(name, { detail }));
 }
