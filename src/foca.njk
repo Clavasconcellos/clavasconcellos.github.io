@@ -1,0 +1,454 @@
+---
+layout: layouts/base.njk
+permalink: /foca/
+route: foca
+titleKey: titleFoca
+title: Foca no Concurso · Clarissa Pilla Vasconcellos
+---
+<div class="view enter" data-view="foca">
+  <section class="case-hero be-hero">
+    <div class="wrap">
+      <h1 class="t-hero-s">
+        <span data-i18n="fcH1a">Every free minute counts:</span>
+        <span class="line2" data-i18n="fcH1b">Turning busy schedules into study plans</span>
+      </h1>
+    </div>
+  </section>
+
+  <div class="hero-band be-band">
+    <img
+      loading="lazy"
+      decoding="async"
+      src="/assets/foca-hero.webp"
+      data-i18n-alt="fcAltHero"
+      alt="A woman on a bus studying with the Foca no Concurso app, with cards for today’s study goal and a mock exam score."
+      width="1440"
+      height="834"
+    />
+  </div>
+
+  <div class="wrap">
+    <hr class="rule" />
+    <dl class="summary">
+      <div>
+        <dt data-i18n="sumRole">Role</dt>
+        <dd data-i18n="fcRoleV">Student · UX Training Project</dd>
+      </div>
+      <div>
+        <dt data-i18n="sumTime">Timeline</dt>
+        <dd data-i18n="fcTimeV">Nov 2019</dd>
+      </div>
+      <div>
+        <dt data-i18n="sumPlat">Platform</dt>
+        <dd>Mobile</dd>
+      </div>
+      <div>
+        <dt data-i18n="sumTeam">Team</dt>
+        <dd data-i18n="fcTeamV">6 students</dd>
+      </div>
+      <div>
+        <dt data-i18n="sumResp">Responsibilities</dt>
+        <dd data-i18n="fcRespV">Research · Prototyping · Usability Testing</dd>
+      </div>
+    </dl>
+
+    <section class="chapter" aria-labelledby="fc-overview">
+      <h2 class="t-h4" id="fc-overview" data-i18n="ovTitle">01 · Overview</h2>
+      <div class="chapter-body pair">
+        <div>
+          <h3 data-i18n="ovProbT">The problem</h3>
+          <p data-i18n="fcProb">
+            In 2018, the number of people investing in public service exams in Brazil was growing about 40% a
+            year, and abstention could reach 60%, as many candidates felt they had no chance against hundreds of
+            thousands of applicants. Our interviews showed candidates struggled to keep a study routine, assess
+            what they knew, and understand the exam notice.
+          </p>
+          <p class="t-caption src-note" data-i18n="fcProbSrc">
+            Sources: Estúdio Correio (2018); a prep-course school director interviewed by UOL (2018).
+          </p>
+        </div>
+        <div>
+          <h3 data-i18n="ovGoalT">The goal</h3>
+          <p data-i18n="fcGoal">
+            How might we help exam candidates organize their studies and assess their knowledge before the exam?
+            We took this question through the full UX process during a two-week intensive course at Mergo.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="chapter" aria-labelledby="fc-research">
+      <h2 class="t-h4" id="fc-research" data-i18n="reTitle">02 · Research</h2>
+      <figure class="chapter-body quote">
+        <blockquote data-i18n="fcQuote">
+          “With two kids and working until 11pm, it’s hard to find time to study, right?!”
+        </blockquote>
+        <figcaption data-i18n="fcQuoteCap">
+          Graziela, 33, nurse, interviewee (translated from Portuguese)
+        </figcaption>
+      </figure>
+      <ul class="insights five">
+        <li>
+          <p class="t-mono" data-i18n="fcR1t">No time</p>
+          <p data-i18n="fcR1">Lack of time to study was the most common finding.</p>
+        </li>
+        <li>
+          <p class="t-mono" data-i18n="fcR2t">No routine</p>
+          <p data-i18n="fcR2">Creating and keeping a daily study routine was the hardest for most people.</p>
+        </li>
+        <li>
+          <p class="t-mono" data-i18n="fcR3t">Weak spots first</p>
+          <p data-i18n="fcR3">In the little time they had, candidates focused on their hardest subjects.</p>
+        </li>
+        <li>
+          <p class="t-mono" data-i18n="fcR4t">Past exams as practice</p>
+          <p data-i18n="fcR4">To assess themselves, they used mock tests built from past exam questions.</p>
+        </li>
+        <li>
+          <p class="t-mono" data-i18n="fcR5t">Skipping the exam notice</p>
+          <p data-i18n="fcR5">
+            Many interviewees didn’t read the exam notice, partly because they couldn’t even find it.
+          </p>
+        </li>
+      </ul>
+    </section>
+
+    <section class="chapter" aria-labelledby="fc-testing">
+      <h2 class="t-h4" id="fc-testing" data-i18n="fcTestTitle">03 · Testing</h2>
+      <div class="chapter-body quote">
+        <p class="quote-lead small" data-i18n="fcTestLead">
+          We tested with 4 real users on 3 tasks. Two features stumbled, and we fixed both before the final
+          version.
+        </p>
+      </div>
+      <div class="tests">
+        <div class="test-row">
+          <article class="test-card issue">
+            <p class="t-mono test-label" data-i18n="fcI1l">Issue 01</p>
+            <h3 class="t-h5" data-i18n="fcI1t">Tags that got in the way</h3>
+            <p data-i18n="fcI1">
+              Video tags meant to give quick access to related videos cluttered the screen and slowed
+              comprehension.
+            </p>
+            <div class="test-img">
+              <img
+                src="/assets/foca-issue1.webp"
+                data-i18n-alt="fcAltI1"
+                alt="Paper prototype of the video lesson screen, with tags for related videos."
+                width="485"
+                height="436"
+                loading="lazy"
+              />
+            </div>
+          </article>
+          <span class="test-arrow" aria-hidden="true">→</span>
+          <article class="test-card fix">
+            <p class="t-mono test-label" data-i18n="fcF1l">Fix 01</p>
+            <h3 class="t-h5" data-i18n="fcF1xt">Tags in the description</h3>
+            <p data-i18n="fcF1x">We moved the tags into the video description.</p>
+            <div class="test-img">
+              <img
+                class="lt"
+                src="/assets/foca-fix1.webp"
+                data-i18n-alt="fcAltF1"
+                alt="Video lesson screen with the tags moved into the description."
+                width="485"
+                height="458"
+                loading="lazy"
+              /><img
+                class="dk"
+                src="/assets/foca-fix1-dark.webp"
+                data-i18n-alt="fcAltF1"
+                alt="Video lesson screen with the tags moved into the description."
+                width="485"
+                height="458"
+                loading="lazy"
+              />
+            </div>
+          </article>
+        </div>
+        <div class="test-row">
+          <article class="test-card issue">
+            <p class="t-mono test-label" data-i18n="fcI2l">Issue 02</p>
+            <h3 class="t-h5" data-i18n="fcI2t">Smart, but not understood</h3>
+            <p data-i18n="fcI2">
+              Onboarding asked users to add fixed daily tasks per weekday with start and end times. Rule-based
+              logic then found free windows and suggested a matching study activity, like a short video during a
+              30-minute break. In 2 of the 4 tests, users couldn’t understand how to use it.
+            </p>
+            <div class="test-img">
+              <img
+                src="/assets/foca-issue2.webp"
+                data-i18n-alt="fcAltI2"
+                alt="A usability test session: a sticky note with the task next to a phone running the prototype."
+                width="485"
+                height="364"
+                loading="lazy"
+              />
+            </div>
+          </article>
+          <span class="test-arrow" aria-hidden="true">→</span>
+          <article class="test-card fix">
+            <p class="t-mono test-label" data-i18n="fcF2l">Fix 02</p>
+            <h3 class="t-h5" data-i18n="fcF2xt">A simple weekly target</h3>
+            <p data-i18n="fcF2x">We simplified it to choosing a study-time target for each weekday.</p>
+            <div class="test-img">
+              <img
+                class="lt"
+                src="/assets/foca-fix2.webp"
+                data-i18n-alt="fcAltF2"
+                alt="Screens to pick a daily study-time target and see the study plan split by subject."
+                width="485"
+                height="458"
+                loading="lazy"
+              /><img
+                class="dk"
+                src="/assets/foca-fix2-dark.webp"
+                data-i18n-alt="fcAltF2"
+                alt="Screens to pick a daily study-time target and see the study plan split by subject."
+                width="485"
+                height="458"
+                loading="lazy"
+              />
+            </div>
+          </article>
+        </div>
+      </div>
+      <figure class="quote qr">
+        <blockquote data-i18n="fcThomas">
+          “You can easily tell where everything is. Very objective and well explained.”
+        </blockquote>
+        <figcaption data-i18n="fcThomasCap">Thomas, test participant (translated from Portuguese)</figcaption>
+      </figure>
+    </section>
+
+    <section class="chapter" aria-labelledby="fc-solution">
+      <h2 class="t-h4" id="fc-solution" data-i18n="fcSolTitle">04 · Solution</h2>
+      <div class="strip strip-left">
+        <button
+          type="button"
+          class="motion-btn"
+          data-strip-toggle
+          data-paused="false"
+          aria-label="Pause animation"
+          data-tip="Pause animation"
+        >
+          <svg class="i-pause" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+            <use href="#icon-pause" /></svg
+          ><svg class="i-play" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+            <use href="#icon-play" />
+          </svg>
+        </button>
+        <div class="strip-track">
+          <img
+            src="/assets/foca-strip-paper.webp"
+            data-i18n-alt="fcAltPaper"
+            alt="Twenty paper prototype screens."
+            width="3160"
+            height="250"
+            loading="lazy"
+          /><img
+            src="/assets/foca-strip-paper.webp"
+            alt=""
+            aria-hidden="true"
+            width="3160"
+            height="250"
+            loading="lazy"
+          />
+        </div>
+      </div>
+      <div class="strip-copy">
+        <h3 class="t-h5" data-i18n="fcSolT">From paper to Figma</h3>
+        <p data-i18n="fcSol">
+          The final version is a medium-fidelity Figma prototype, evolved from a paper prototype and built around
+          two ideas: a weekly study plan based on time targets, and video lessons and content with past exams and
+          mock tests.
+        </p>
+      </div>
+      <div class="strip strip-right">
+        <button
+          type="button"
+          class="motion-btn"
+          data-strip-toggle
+          data-paused="false"
+          aria-label="Pause animation"
+          data-tip="Pause animation"
+        >
+          <svg class="i-pause" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+            <use href="#icon-pause" /></svg
+          ><svg class="i-play" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+            <use href="#icon-play" />
+          </svg>
+        </button>
+        <div class="strip-track">
+          <img
+            src="/assets/foca-strip-hifi.webp"
+            data-i18n-alt="fcAltHifi"
+            alt="Twenty screens of the 2019 medium-fidelity prototype."
+            width="3160"
+            height="250"
+            loading="lazy"
+          /><img
+            src="/assets/foca-strip-hifi.webp"
+            alt=""
+            aria-hidden="true"
+            width="3160"
+            height="250"
+            loading="lazy"
+          />
+        </div>
+      </div>
+    </section>
+
+    <section class="chapter" aria-labelledby="fc-redesign">
+      <h2 class="t-h4" id="fc-redesign" data-i18n="fcRdTitle">05 · 2026 Redesign</h2>
+      <p class="rd-sub" data-i18n="fcRdSub">
+        Seven years later, I came back to Foca no Concurso with everything I’ve learned since. This is a reboot of
+        the original screens: the flow we tested in 2019 stays, while the visual identity, accessibility and
+        feedback get a fresh take.
+      </p>
+
+      <div class="feature">
+        <div class="media">
+          <img
+            src="/assets/foca-identity.webp"
+            data-i18n-alt="fcAltId"
+            alt="The new visual identity: typefaces, color palette, buttons and the redrawn seal logo."
+            width="736"
+            height="552"
+            loading="lazy"
+          />
+        </div>
+        <div class="copy-col">
+          <h3 class="t-h5" data-i18n="fcD1t">A visual identity of its own</h3>
+          <p data-i18n="fcD1">
+            I redrew the logo myself, giving the seal an orange headband, and that orange became the main color in
+            place of the original blue, with soft tints that keep the tone friendly. Fredoka brings the playful
+            side to titles, Outfit keeps longer text easy to read, and orange buttons always carry dark text for
+            contrast.
+          </p>
+        </div>
+      </div>
+
+      <div class="feature flip right">
+        <div class="copy-col">
+          <h3 class="t-h5" data-i18n="fcD2t">Accessible video lessons</h3>
+          <p data-i18n="fcD2">
+            Lessons now include captions, audio description, a transcript and a notepad, all one tap away under
+            the video. The next lesson waits in a small floating bar instead of taking up space on the screen.
+          </p>
+        </div>
+        <div class="media">
+          <img
+            class="lt"
+            src="/assets/foca-video.webp"
+            data-i18n-alt="fcAltVid"
+            alt="Video lesson screens with captions, audio description, transcript and notepad options, and the floating next-lesson bar."
+            width="736"
+            height="552"
+            loading="lazy"
+          /><img
+            class="dk"
+            src="/assets/foca-video-dark.webp"
+            data-i18n-alt="fcAltVid"
+            alt="Video lesson screens with captions, audio description, transcript and notepad options, and the floating next-lesson bar."
+            width="736"
+            height="552"
+            loading="lazy"
+          />
+        </div>
+      </div>
+
+      <div class="feature">
+        <div class="media">
+          <img
+            class="lt"
+            src="/assets/foca-feedback.webp"
+            data-i18n-alt="fcAltFb"
+            alt="Mock exam results split by subject, with an encouragement card suggesting a plan adjustment."
+            width="736"
+            height="552"
+            loading="lazy"
+          /><img
+            class="dk"
+            src="/assets/foca-feedback-dark.webp"
+            data-i18n-alt="fcAltFb"
+            alt="Mock exam results split by subject, with an encouragement card suggesting a plan adjustment."
+            width="736"
+            height="552"
+            loading="lazy"
+          />
+        </div>
+        <div class="copy-col">
+          <h3 class="t-h5" data-i18n="fcD3t">Instant feedback, by subject</h3>
+          <p data-i18n="fcD3">
+            When a simulado (mock exam) ends, the results break down by subject instead of showing only a total
+            score, so candidates can see where they’re losing points. This idea comes from the original prototype.
+            What’s new is an encouragement card for people who pass but struggle in one or two subjects: it
+            suggests shifting study hours toward them for a few days, with a shortcut to adjust the plan.
+          </p>
+        </div>
+      </div>
+
+      <div class="feature flip right">
+        <div class="copy-col">
+          <h3 class="t-h5" data-i18n="fcD4t">Small wins keep people going</h3>
+          <p data-i18n="fcD4">
+            Studying for a concurso (public service exam) is a long haul, so small wins matter. When candidates
+            complete their daily study time, a celebration screen marks it with a summary of the day and an option
+            to share. It only appears after they finish the current study activity, so it never interrupts a
+            lesson or a simulado.
+          </p>
+        </div>
+        <div class="media">
+          <img
+            class="lt"
+            src="/assets/foca-wins.webp"
+            data-i18n-alt="fcAltWin"
+            alt="The daily goal card and the celebration screen with a summary of the day, next to the seal mascot."
+            width="736"
+            height="552"
+            loading="lazy"
+          /><img
+            class="dk"
+            src="/assets/foca-wins-dark.webp"
+            data-i18n-alt="fcAltWin"
+            alt="The daily goal card and the celebration screen with a summary of the day, next to the seal mascot."
+            width="736"
+            height="552"
+            loading="lazy"
+          />
+        </div>
+      </div>
+
+      <div class="feature">
+        <div class="media">
+          <img
+            class="lt"
+            src="/assets/foca-focus.webp"
+            data-i18n-alt="fcAltFoc"
+            alt="Exam search results and the daily study plan split by subject."
+            width="736"
+            height="552"
+            loading="lazy"
+          /><img
+            class="dk"
+            src="/assets/foca-focus-dark.webp"
+            data-i18n-alt="fcAltFoc"
+            alt="Exam search results and the daily study plan split by subject."
+            width="736"
+            height="552"
+            loading="lazy"
+          />
+        </div>
+        <div class="copy-col">
+          <h3 class="t-h5" data-i18n="fcD5t">Focused study</h3>
+          <p data-i18n="fcD5">
+            As planned in 2019, candidates choose which exams they’re studying for, and the app shows the rules
+            and subjects they should focus on.
+          </p>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

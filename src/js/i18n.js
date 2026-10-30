@@ -1,4 +1,4 @@
-/* Language: English is the copy written in index.html; Portuguese comes from i18n/pt.js.
+/* Language: English is the copy written in the page templates; Portuguese comes from i18n/pt.js.
    Elements opt in with data-i18n (inner HTML), data-i18n-aria (aria-label) or data-i18n-alt (alt). */
 import { root, storage, emit } from './utils.js';
 import PT from './i18n/pt.js';
@@ -8,12 +8,6 @@ const EN_EXTRA = {
   copiedT: 'Email copied!',
   copiedB: 'Paste it wherever you like.',
   copyFailT: 'Couldn’t copy automatically',
-  titleHome: 'Clarissa Pilla Vasconcellos',
-  titleResume: 'Resume · Clarissa Pilla Vasconcellos',
-  title3: '3tentos · Clarissa Pilla Vasconcellos',
-  titleBestegg: 'Best Egg · Clarissa Pilla Vasconcellos',
-  titleTentoscap: 'TentosCap · Clarissa Pilla Vasconcellos',
-  titleFoca: 'Foca no Concurso · Clarissa Pilla Vasconcellos',
   toDark: 'Switch to dark mode',
   toLight: 'Switch to light mode',
   darkMode: 'Dark mode',

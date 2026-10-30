@@ -61,7 +61,7 @@ function mark(el, delay = 0, media = false) {
   if (el.querySelector('img')) warm.observe(el);
 }
 
-/* anything already on screen when a page appears shows at once, without animating */
+/* anything already on screen when the page loads shows at once, without animating */
 function settle(view) {
   requestAnimationFrame(() => {
     const height = window.innerHeight;
@@ -102,26 +102,14 @@ export function initReveal() {
     { rootMargin: '1200px 0px 1200px 0px' },
   );
 
-  document.querySelectorAll('.view').forEach((view) => {
-    SINGLE.forEach((sel) => view.querySelectorAll(sel).forEach((el) => mark(el)));
-    MEDIA.forEach((sel) => view.querySelectorAll(sel).forEach((el) => mark(el, 0, true)));
-    GROUPS.forEach((sel) =>
-      view
-        .querySelectorAll(sel)
-        .forEach((group) => [...group.children].forEach((el, i) => mark(el, Math.min(i, 5) * STAGGER_MS))),
-    );
-
-    if (!view.hidden) settle(view);
-    new MutationObserver(() => {
-      if (!view.hidden) {
-        settle(view);
-        return;
-      }
-      /* page left: reset its blocks so they reveal again on the next visit */
-      view.querySelectorAll('.reveal').forEach((el) => {
-        el.classList.remove('in', 'instant');
-        io.observe(el);
-      });
-    }).observe(view, { attributes: true, attributeFilter: ['hidden'] });
-  });
+  const view = document.querySelector('.view');
+  if (!view) return;
+  SINGLE.forEach((sel) => view.querySelectorAll(sel).forEach((el) => mark(el)));
+  MEDIA.forEach((sel) => view.querySelectorAll(sel).forEach((el) => mark(el, 0, true)));
+  GROUPS.forEach((sel) =>
+    view
+      .querySelectorAll(sel)
+      .forEach((group) => [...group.children].forEach((el, i) => mark(el, Math.min(i, 5) * STAGGER_MS))),
+  );
+  settle(view);
 }

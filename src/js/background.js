@@ -1,6 +1,7 @@
 /* Page background: soft leaf shadows drawn with WebGL, so they stay sharp at any size and sway slowly.
    If WebGL is missing or fails, the canvas stays hidden and the texture image on <body> shows instead. */
 import { root, reducedMotion, on } from './utils.js';
+import { currentPage } from './page.js';
 
 /* each page gets its own leaf arrangement */
 const SEEDS = { home: 7, resume: 89, '3tentos': 23, bestegg: 41, tentoscap: 58, foca: 76 };
@@ -70,8 +71,7 @@ function cssColor(name, fallback) {
 }
 
 function currentSeed() {
-  const view = document.querySelector('.view:not([hidden])');
-  return SEEDS[view ? view.dataset.view : 'home'] ?? SEEDS.home;
+  return SEEDS[currentPage()] ?? SEEDS.home;
 }
 
 export function initBackground() {
@@ -173,7 +173,6 @@ export function initBackground() {
   window.addEventListener('resize', redraw);
   reducedMotion.addEventListener('change', redraw);
   on('cpv:themechange', redraw);
-  on('cpv:routechange', redraw);
   on('cpv:motionchange', onMotionChange);
   document.addEventListener('visibilitychange', () => {
     if (!document.hidden) kick();

@@ -352,6 +352,12 @@ export default {
   lightMode: 'Modo claro',
   closeMenu: 'Fechar menu',
   toOther: 'View in English',
-  titleHome: 'Clarissa Pilla Vasconcellos',
+  titleHome: 'Clarissa Pilla Vasconcellos · Product Designer',
   title3: '3tentos · Clarissa Pilla Vasconcellos',
+  title404: 'Página não encontrada · Clarissa Pilla Vasconcellos',
+  nfL1: '<span>Ops,</span> <span class="accent">esta página</span>',
+  nfL2: '<span>não existe</span><span class="accent">.</span>',
+  nfSub:
+    'O endereço pode estar digitado errado, ou a página pode ter mudado de lugar. Todos os projetos estão a um clique da página inicial.',
+  nfCta: 'Ir para a página inicial →',
 };

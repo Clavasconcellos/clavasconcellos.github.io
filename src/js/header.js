@@ -29,11 +29,6 @@ function closePanel() {
   root.classList.remove('menu-open');
 }
 
-export function closeMenus() {
-  closeMenu();
-  closePanel();
-}
-
 /* keep Tab inside the open mobile panel */
 function trapFocus(event) {
   if (event.key !== 'Tab') return;

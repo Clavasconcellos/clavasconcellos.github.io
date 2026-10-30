@@ -213,7 +213,7 @@ button {
   }
 }
 
-/* ---------- views + page transition ---------- */
+/* ---------- page content: a short fade-in as each page loads ---------- */
 main {
   display: block;
 }
@@ -222,9 +222,6 @@ main {
 }
 .view.enter {
   animation: viewIn 0.32s ease-out both;
-}
-.view.leave {
-  animation: viewOut 0.18s ease-in both;
 }
 @keyframes viewIn {
   from {
@@ -236,17 +233,8 @@ main {
     transform: none;
   }
 }
-@keyframes viewOut {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
-}
 @media (prefers-reduced-motion: reduce) {
-  .view.enter,
-  .view.leave {
+  .view.enter {
     animation: none;
   }
 }
