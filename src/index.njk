@@ -20,67 +20,67 @@ title: Clarissa Pilla Vasconcellos · Product Designer
   </section>
 
   <section class="featured" aria-labelledby="featured-title">
-    <div class="wrap">
+    <div class="wrap featured-grid">
       <div class="featured-text">
-        <p class="eyebrow" data-i18n="featEyebrow">FEATURED PROJECT</p>
-        <h2 id="featured-title" data-i18n="featTitle">3tentos: from field to screen</h2>
+        <p class="t-eyebrow" data-i18n="featEyebrow">FEATURED PROJECT</p>
+        <h2 id="featured-title" data-i18n="featTitle"><span class="line">3tentos:</span> <span class="line">from field to screen</span></h2>
         <p data-i18n="featDesc">
           A backoffice suite that helps 135+ consultants guide about 25,000 farmers, from client dashboards to
           crop management plans, now redesigned for the phone in their pocket.
         </p>
         <a class="cta" href="/3tentos/" data-i18n="featCta">See the case study →</a>
       </div>
-    </div>
-    <div class="featured-media">
-      <button
-        type="button"
-        class="motion-btn"
-        data-motion-toggle
-        data-paused="false"
-        aria-label="Pause animation"
-        data-tip="Pause animation"
-      >
-        <svg class="i-pause" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
-          <use href="#icon-pause" /></svg
-        ><svg class="i-play" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
-          <use href="#icon-play" />
-        </svg>
-      </button>
-      <video
-        class="lt hero-video"
-        data-poster="/assets/hero-poster.webp"
-        muted
-        loop
-        playsinline
-        preload="none"
-        data-i18n-aria="videoAria"
-        aria-label="Animated walkthrough of the 3tentos redesign: the field map becomes a phone, a management plan is picked and a step added, then the Home and My Clients dashboards stretch from phone to tablet to desktop."
-      >
-        <source src="/assets/hero-motion.mp4" type="video/mp4" />
-      </video>
-      <video
-        class="dk hero-video"
-        data-poster="/assets/hero-poster-dark.webp"
-        muted
-        loop
-        playsinline
-        preload="none"
-        data-i18n-aria="videoAria"
-        aria-label="Animated walkthrough of the 3tentos redesign: the field map becomes a phone, a management plan is picked and a step added, then the Home and My Clients dashboards stretch from phone to tablet to desktop."
-      >
-        <source src="/assets/hero-motion-dark.mp4" type="video/mp4" />
-      </video>
-      <video
-        class="alpha hero-video"
-        muted
-        loop
-        playsinline
-        preload="none"
-        data-i18n-aria="videoAria"
-        aria-label="Animated walkthrough of the 3tentos redesign: the field map becomes a phone, a management plan is picked and a step added, then the Home and My Clients dashboards stretch from phone to tablet to desktop."
-      >
-        <source src="/assets/hero-motion-alpha.webm" type="video/webm" />
-      </video>
+      <div class="featured-media">
+        <button
+          type="button"
+          class="motion-btn"
+          data-motion-toggle
+          data-paused="false"
+          aria-label="Pause animation"
+          data-tip="Pause animation"
+        >
+          <svg class="i-pause" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+            <use href="#icon-pause" /></svg
+          ><svg class="i-play" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+            <use href="#icon-play" />
+          </svg>
+        </button>
+        <video
+          class="lt hero-video"
+          data-poster="/assets/hero-poster.webp"
+          muted
+          loop
+          playsinline
+          preload="none"
+          data-i18n-aria="videoAria"
+          aria-label="Animated walkthrough of the 3tentos redesign: the field map becomes a phone, a management plan is picked and a step added, then the Home and My Clients dashboards stretch from phone to tablet to desktop."
+        >
+          <source src="/assets/hero-motion.mp4" type="video/mp4" />
+        </video>
+        <video
+          class="dk hero-video"
+          data-poster="/assets/hero-poster-dark.webp"
+          muted
+          loop
+          playsinline
+          preload="none"
+          data-i18n-aria="videoAria"
+          aria-label="Animated walkthrough of the 3tentos redesign: the field map becomes a phone, a management plan is picked and a step added, then the Home and My Clients dashboards stretch from phone to tablet to desktop."
+        >
+          <source src="/assets/hero-motion-dark.mp4" type="video/mp4" />
+        </video>
+        <video
+          class="alpha hero-video"
+          muted
+          loop
+          playsinline
+          preload="none"
+          data-i18n-aria="videoAria"
+          aria-label="Animated walkthrough of the 3tentos redesign: the field map becomes a phone, a management plan is picked and a step added, then the Home and My Clients dashboards stretch from phone to tablet to desktop."
+        >
+          <source src="/assets/hero-motion-alpha.webm" type="video/webm" />
+        </video>
+      </div>
     </div>
   </section>
 
@@ -119,7 +119,7 @@ title: Clarissa Pilla Vasconcellos · Product Designer
   <section class="band work" aria-labelledby="work-title">
     <div class="wrap">
       <h2 class="t-h4" id="work-title" data-i18n="workTitle">Selected work</h2>
-      <div class="work-grid">
+      <div class="work-grid grid">
         <ul class="work-list">
           <li data-key="3tentos" class="project has-anim">
             <a href="/3tentos/">
@@ -354,6 +354,76 @@ title: Clarissa Pilla Vasconcellos · Product Designer
           />
         </div>
       </div>
+    </div>
+  </section>
+
+  <section class="band ai" id="how-i-work" aria-labelledby="ai-title">
+    <div class="wrap grid ai-grid">
+      <div class="ai-side">
+        <div class="ai-head">
+          <h2 class="t-h4" id="ai-title" data-i18n="aiTitle">AI + Human, <span class="soft">working in tandem</span></h2>
+          <p class="t-sub" data-i18n="aiSub">AI is the tool.<br />I'm the brain.</p>
+        </div>
+        <nav class="ai-rail" data-i18n-aria="aiNavAria" aria-label="How I work, step by step">
+          <span class="ai-rail-track" aria-hidden="true"><span class="ai-rail-fill"></span></span>
+          <ol>
+            <li><a href="#ai-research" data-step="0" aria-current="step" data-i18n="aiL1">Research</a></li>
+            <li><a href="#ai-ideation" data-step="1" data-i18n="aiL2">Ideation</a></li>
+            <li><a href="#ai-build" data-step="2" data-i18n="aiL3">Build</a></li>
+            <li><a href="#ai-motion" data-step="3" data-i18n="aiL4">Motion</a></li>
+          </ol>
+        </nav>
+      </div>
+      <ol class="ai-steps">
+        <li class="ai-step" id="ai-research">
+          <div class="ai-step-body">
+            <p class="ai-label" data-i18n="aiL1">Research</p>
+            <h3 data-i18n="aiT1">Data &amp; Discovery</h3>
+            <p class="ai-text" data-i18n="aiP1">
+              Research used to mean drowning in a sea of colorful post-its, where good insights got buried or lost
+              to overload. Now summarizing is quick, and memory tools help me find the detail I swore I'd remember,
+              lost in a Slack thread from three projects ago.
+            </p>
+          </div>
+          <span class="ai-bar" aria-hidden="true"><span></span></span>
+        </li>
+        <li class="ai-step" id="ai-ideation">
+          <div class="ai-step-body">
+            <p class="ai-label" data-i18n="aiL2">Ideation</p>
+            <h3 data-i18n="aiT2">Fast branching &amp; furious iteration</h3>
+            <p class="ai-text" data-i18n="aiP2">
+              Creative dead ends used to bring my flow to a hard stop. Now I can follow a new insight and change
+              direction faster than Dom Toretto shifts gears. The trick is setting up the connections properly, so
+              product and business stay in the driver's seat.
+            </p>
+          </div>
+          <span class="ai-bar" aria-hidden="true"><span></span></span>
+        </li>
+        <li class="ai-step" id="ai-build">
+          <div class="ai-step-body">
+            <p class="ai-label" data-i18n="aiL3">Build</p>
+            <h3 data-i18n="aiT3">Bridging design and code</h3>
+            <p class="ai-text" data-i18n="aiP3">
+              I already structured my Figma layers following HTML's div logic and wrote Design QA reports comparing
+              Figma to production. Still, I thought git pull was a hacker move to steal gold from Fort Knox. Building
+              with AI got me into GitHub repos, VS Code and merging branches, and opened a whole new world of
+              possibilities for prototyping.
+            </p>
+          </div>
+          <span class="ai-bar" aria-hidden="true"><span></span></span>
+        </li>
+        <li class="ai-step" id="ai-motion">
+          <div class="ai-step-body">
+            <p class="ai-label" data-i18n="aiL4">Motion</p>
+            <h3 data-i18n="aiT4">Days of work, done in an afternoon</h3>
+            <p class="ai-text" data-i18n="aiP4">
+              Pixar isn't calling yet. But After Effects, Premiere and a past hyperfocus on animation principles made
+              Figma's animation tool easy to pick up. With AI, I can get even pickier about every detail and still
+              deliver better work, faster than I ever could by hand.
+            </p>
+          </div>
+        </li>
+      </ol>
     </div>
   </section>
 

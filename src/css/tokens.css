@@ -102,6 +102,8 @@
   --brand-fill-hover: #2f7161;
   --on-brand: #040814;
   --neutral-line: #303030;
+  /* unfilled scroll-progress track (How I work section) */
+  --track: #b3b3b3;
 
   --f-display: 'Reem Kufi', 'Trebuchet MS', system-ui, sans-serif;
   --f-body: 'Nunito Sans', 'Segoe UI', system-ui, sans-serif;
@@ -180,6 +182,7 @@
     --brand-fill-hover: #97d9c9;
     --on-brand: #040814;
     --neutral-line: #f3f3f3;
+    --track: rgba(255, 255, 255, 0.24);
   }
 }
 :root[data-theme='dark'] {
@@ -232,4 +235,5 @@
   --brand-fill-hover: #97d9c9;
   --on-brand: #040814;
   --neutral-line: #f3f3f3;
+  --track: rgba(255, 255, 255, 0.24);
 }
