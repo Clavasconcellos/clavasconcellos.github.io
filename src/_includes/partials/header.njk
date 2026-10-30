@@ -1,0 +1,182 @@
+<header class="site-header">
+  <div class="bar">
+    <nav class="nav" aria-label="Main" data-i18n-aria="navMain">
+      <a class="pill" href="./" data-route="home" data-i18n="navHome">Home</a>
+      <a class="pill" href="#resume" data-route="resume" data-i18n="navResume">Resume</a>
+      <div class="menu-wrap">
+        <button class="pill" type="button" id="projects-btn" aria-expanded="false" aria-controls="projects-menu">
+          <span data-i18n="navProjects">Projects</span>
+          <svg class="chev chev-down" viewBox="0 0 16 16" aria-hidden="true">
+            <path
+              d="M11.5286 5.52865C11.789 5.2683 12.211 5.2683 12.4714 5.52865C12.7317 5.789 12.7317 6.211 12.4714 6.47135L8.47135 10.4714C8.21101 10.7317 7.789 10.7317 7.52865 10.4714L3.52865 6.47135C3.2683 6.211 3.2683 5.789 3.52865 5.52865C3.789 5.2683 4.211 5.2683 4.47135 5.52865L8 9.05729L11.5286 5.52865Z"
+              fill="currentColor"
+            />
+          </svg>
+          <svg class="chev chev-up" viewBox="0 0 16 16" aria-hidden="true">
+            <path
+              d="M7.57921 5.48275C7.84106 5.26915 8.22738 5.28456 8.47147 5.52865L12.4715 9.52865C12.7318 9.789 12.7318 10.211 12.4715 10.4714C12.2111 10.7317 11.7891 10.7317 11.5288 10.4714L8.00011 6.94271L4.47147 10.4714C4.21112 10.7317 3.78911 10.7317 3.52876 10.4714C3.26841 10.211 3.26841 9.789 3.52876 9.52865L7.52876 5.52865L7.57921 5.48275Z"
+              fill="currentColor"
+            />
+          </svg>
+        </button>
+        <div class="overlay" id="projects-menu">
+          <ul>
+            <li>
+              <a class="option" href="#3tentos" data-route="3tentos"
+                ><span>3tentos</span
+                ><svg class="check" viewBox="0 0 16 16" aria-hidden="true"><use href="#icon-check" /></svg
+              ></a>
+            </li>
+            <li>
+              <a class="option" href="#bestegg" data-route="bestegg"
+                ><span>Best Egg</span
+                ><svg class="check" viewBox="0 0 16 16" aria-hidden="true"><use href="#icon-check" /></svg
+              ></a>
+            </li>
+            <li>
+              <a class="option" href="#tentoscap" data-route="tentoscap"
+                ><span>TentosCap</span
+                ><svg class="check" viewBox="0 0 16 16" aria-hidden="true"><use href="#icon-check" /></svg
+              ></a>
+            </li>
+            <li>
+              <a class="option" href="#foca" data-route="foca"
+                ><span data-i18n="fnc">Foca no Concurso (Focus on the Exam)</span
+                ><svg class="check" viewBox="0 0 16 16" aria-hidden="true"><use href="#icon-check" /></svg
+              ></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <a class="brand" href="./" data-route="home" aria-label="CPV, home" data-i18n-aria="brandHome">
+      <span class="full"
+        ><img class="lt" src="assets/logo-h.png" alt="" width="193" height="40" /><img
+          class="dk"
+          src="assets/logo-h-dark.png"
+          alt=""
+          width="193"
+          height="40"
+      /></span>
+      <span class="mark"
+        ><img class="lt" src="assets/logo-mark.png" alt="" width="73" height="35" /><img
+          class="dk"
+          src="assets/logo-mark-dark.png"
+          alt=""
+          width="73"
+          height="35"
+      /></span>
+    </a>
+    <div class="actions">
+      <button class="lang-btn" type="button" data-lang-toggle>
+        <svg class="flag-br" viewBox="0 0 16 16" aria-hidden="true">
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M7.94938 6.31803C8.87831 6.31805 9.63135 7.07107 9.63135 8C9.63134 8.92893 8.87831 9.68195 7.94938 9.68197C7.02044 9.68197 6.26742 8.92894 6.26742 8C6.26742 7.07106 7.02044 6.31803 7.94938 6.31803ZM7.94938 7.3903C7.61272 7.3903 7.33968 7.66334 7.33968 8C7.33969 8.33665 7.61273 8.6097 7.94938 8.6097C8.28602 8.60969 8.55908 8.33664 8.55908 8C8.55908 7.66335 8.28603 7.39031 7.94938 7.3903Z"
+            fill="currentColor"
+          />
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M7.54118 3.79883C7.78158 3.61253 8.11753 3.6125 8.35791 3.79883L13.0985 7.47331C13.4425 7.74024 13.4426 8.26017 13.0985 8.52702L8.35791 12.2015L8.31169 12.234C8.09152 12.3767 7.80724 12.3767 7.58708 12.234L7.54118 12.2015L2.80062 8.52702C2.45636 8.26015 2.45642 7.74022 2.80062 7.47331L7.54118 3.79883ZM4.29704 8L7.94938 10.8311L11.6017 8L7.94938 5.16895L4.29704 8Z"
+            fill="currentColor"
+          />
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M13.3332 2C14.4347 2 15.3332 2.89848 15.3332 4V12C15.3332 13.1015 14.4347 14 13.3332 14H2.6665C1.56498 14 0.666504 13.1015 0.666504 12V4C0.666504 2.89848 1.56498 2 2.6665 2H13.3332ZM2.6665 3.33333C2.38097 3.33333 1.99984 3.60767 1.99984 3.92122V12C1.99984 12.3651 2.30136 12.6667 2.6665 12.6667H13.3332C13.6983 12.6667 13.9998 12.3651 13.9998 12V3.90267C13.9998 3.59224 13.6088 3.33333 13.3332 3.33333H2.6665Z"
+            fill="currentColor"
+          />
+        </svg>
+        <svg class="flag-us" viewBox="0 0 48 48" aria-hidden="true" hidden>
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M40 6C43.3046 6 46 8.69543 46 12V36C46 39.3046 43.3046 42 40 42H8C4.69543 42 2 39.3046 2 36V12C2 8.69543 4.69543 6 8 6H40ZM6 33.5664V36C6 37.0954 6.90457 38 8 38H40C41.0954 38 42 37.0954 42 36V33.5664H6ZM6 29.5664H42V26H6V29.5664ZM7.85742 10.0869C6.84887 10.1892 6.06171 11.0407 6.06152 12.0762V22H21.3066V10.0762H8.06152L7.85742 10.0869ZM25.3066 22H42V18.4346H25.3066V22ZM25.3066 10.0762V14.4346H42V11.708C42 10.7767 40.8268 10 40 10H25.3047C25.3052 10.0253 25.3066 10.0507 25.3066 10.0762Z"
+            fill="currentColor"
+          />
+        </svg>
+        <span class="lang-label">PT-BR</span>
+      </button>
+      <button class="theme-btn" type="button" data-theme-toggle>
+        <svg class="moon" viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            d="M11.1176 2.00451C11.5101 1.96824 11.8875 2.16563 12.081 2.5089C12.2745 2.85223 12.2483 3.2774 12.0141 3.59435C11.1599 4.74997 10.7486 6.17398 10.8554 7.60705C10.9623 9.04007 11.5801 10.3873 12.5962 11.4034C13.6123 12.4196 14.9599 13.0373 16.393 13.1442C17.826 13.251 19.2497 12.8401 20.4052 11.986C20.7222 11.7517 21.1473 11.7256 21.4907 11.9191C21.834 12.1126 22.0318 12.4895 21.9956 12.8819C21.8208 14.7733 21.111 16.5761 19.9492 18.0787C18.7874 19.5813 17.2218 20.722 15.4355 21.3673C13.6491 22.0126 11.7156 22.1356 9.86179 21.7223C8.00792 21.3089 6.30985 20.3759 4.96677 19.0328C3.62381 17.6898 2.69116 15.9921 2.2778 14.1383C1.86444 12.2844 1.98751 10.351 2.63278 8.56457C3.27805 6.77822 4.41879 5.21266 5.92136 4.05089C7.42395 2.88915 9.22639 2.17933 11.1176 2.00451ZM9.31589 4.44005C8.53857 4.72137 7.80549 5.12228 7.14499 5.63293C5.94287 6.56236 5.02986 7.81511 4.51364 9.24425C3.9975 10.6733 3.89932 12.2198 4.22995 13.7027C4.56065 15.1858 5.30686 16.5443 6.38132 17.6188C7.45573 18.6932 8.81384 19.4394 10.2968 19.7701C11.7799 20.1008 13.3267 20.0022 14.7558 19.486C16.185 18.9697 17.4377 18.0572 18.3672 16.8551C18.8779 16.1945 19.2782 15.4611 19.5595 14.6837C18.5067 15.0644 17.3777 15.2233 16.2441 15.1388C14.3333 14.9963 12.537 14.1729 11.1821 12.818C9.82722 11.4631 9.00381 9.66676 8.8613 7.75597C8.77676 6.62233 8.93511 5.49292 9.31589 4.44005Z"
+            fill="currentColor"
+          />
+        </svg>
+        <svg class="sun" viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            d="M11 23V21C11 20.4477 11.4477 20 12 20C12.5523 20 13 20.4477 13 21V23C13 23.5523 12.5523 24 12 24C11.4477 24 11 23.5523 11 23ZM4.93311 17.6528C5.32364 17.2624 5.95669 17.2624 6.34717 17.6528C6.73765 18.0433 6.73755 18.6764 6.34717 19.0669L4.92725 20.4873C4.53672 20.8778 3.90321 20.8778 3.5127 20.4873C3.12218 20.0968 3.1222 19.4633 3.5127 19.0728L4.93311 17.6528ZM17.6528 17.6528C18.0433 17.2624 18.6764 17.2624 19.0669 17.6528L20.4873 19.0728C20.8778 19.4633 20.8778 20.0968 20.4873 20.4873C20.0968 20.8778 19.4633 20.8778 19.0728 20.4873L17.6528 19.0669C17.2624 18.6764 17.2624 18.0433 17.6528 17.6528ZM16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16C14.2091 16 16 14.2091 16 12ZM3 11C3.55228 11 4 11.4477 4 12C4 12.5523 3.55228 13 3 13H1C0.447715 13 0 12.5523 0 12C0 11.4477 0.447715 11 1 11H3ZM23 11C23.5523 11 24 11.4477 24 12C24 12.5523 23.5523 13 23 13H21C20.4477 13 20 12.5523 20 12C20 11.4477 20.4477 11 21 11H23ZM3.5127 3.5127C3.90321 3.12218 4.53672 3.1222 4.92725 3.5127L6.34717 4.93311C6.73756 5.32364 6.73765 5.95669 6.34717 6.34717C5.95669 6.73765 5.32364 6.73756 4.93311 6.34717L3.5127 4.92725C3.1222 4.53672 3.12218 3.90321 3.5127 3.5127ZM19.0728 3.5127C19.4633 3.1222 20.0968 3.12218 20.4873 3.5127C20.8778 3.90321 20.8778 4.53672 20.4873 4.92725L19.0669 6.34717C18.6764 6.73755 18.0433 6.73765 17.6528 6.34717C17.2624 5.95669 17.2624 5.32364 17.6528 4.93311L19.0728 3.5127ZM11 3V1C11 0.447715 11.4477 0 12 0C12.5523 0 13 0.447715 13 1V3C13 3.55228 12.5523 4 12 4C11.4477 4 11 3.55228 11 3ZM18 12C18 15.3137 15.3137 18 12 18C8.68629 18 6 15.3137 6 12C6 8.68629 8.68629 6 12 6C15.3137 6 18 8.68629 18 12Z"
+            fill="currentColor"
+          />
+        </svg>
+      </button>
+      <button
+        class="menu-btn"
+        type="button"
+        id="menu-btn"
+        aria-expanded="false"
+        aria-controls="mobile-panel"
+        aria-label="Menu"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            d="M3 6h18M3 12h18M3 18h18"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            fill="none"
+          />
+        </svg>
+      </button>
+    </div>
+  </div>
+  <nav class="mobile-panel" id="mobile-panel" aria-label="Main" data-i18n-aria="navMain" hidden>
+    <div class="panel-top">
+      <a class="brand-mark" href="./" data-route="home" aria-label="CPV, home" data-i18n-aria="brandHome"
+        ><img class="lt" src="assets/logo-mark.png" alt="" width="73" height="35" /><img
+          class="dk"
+          src="assets/logo-mark-dark.png"
+          alt=""
+          width="73"
+          height="35"
+      /></a>
+      <button class="icon-btn panel-close" type="button" aria-label="Close menu" data-i18n-aria="closeMenu">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            d="M18 6 6 18M6 6l12 12"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            fill="none"
+          />
+        </svg>
+      </button>
+    </div>
+    <ul class="panel-list">
+      <li>
+        <a class="mpill" href="./" data-route="home"><span data-i18n="navHome">Home</span></a>
+      </li>
+      <li>
+        <a class="mpill" href="#resume" data-route="resume"><span data-i18n="navResume">Resume</span></a>
+      </li>
+      <li>
+        <a class="mpill" href="#3tentos" data-route="3tentos"><span>3tentos</span></a>
+      </li>
+      <li>
+        <a class="mpill" href="#bestegg" data-route="bestegg"><span>Best Egg</span></a>
+      </li>
+      <li>
+        <a class="mpill" href="#tentoscap" data-route="tentoscap"><span>TentosCap</span></a>
+      </li>
+      <li>
+        <a class="mpill" href="#foca" data-route="foca"
+          ><span data-i18n="fnc">Foca no Concurso (Focus on the Exam)</span></a
+        >
+      </li>
+    </ul>
+    <div class="panel-actions"></div>
+  </nav>
+</header>
