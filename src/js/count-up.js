@@ -5,12 +5,31 @@ import { reducedMotion, on } from './utils.js';
 
 let runId = 0;
 
-const DURATION = 900;
+const DURATION = 1100;
+/* the stat fades in with the scroll reveal (0.6s plus its stagger); start counting once it is mostly visible */
+const AFTER_REVEAL = 500;
+const REVEAL_WAIT_MAX = 2000;
 const ease = (t) => 1 - Math.pow(1 - t, 3);
 
+/* wait for the stat's own reveal (class "in") and its stagger delay before counting */
+function whenRevealed(el, callback) {
+  const block = el.closest('.reveal');
+  if (!block) return callback();
+  const begin = performance.now();
+  const check = () => {
+    if (block.classList.contains('in') || performance.now() - begin > REVEAL_WAIT_MAX) {
+      const stagger = parseFloat(block.style.getPropertyValue('--rd')) || 0;
+      const instant = block.classList.contains('instant');
+      setTimeout(callback, instant ? 0 : stagger + AFTER_REVEAL);
+    } else {
+      requestAnimationFrame(check);
+    }
+  };
+  check();
+}
+
 function run(el) {
-  if (el.dataset.final) el.textContent = el.dataset.final;
-  const match = el.textContent.match(/^(\D*)(\d+)(.*)$/s);
+  const match = (el.dataset.final || el.textContent).match(/^(\D*)(\d+)(.*)$/s);
   if (!match) return;
   const [, before, digits, after] = match;
   const end = Number(digits);
@@ -34,7 +53,10 @@ export function initCountUp() {
       entries.forEach((entry) => {
         if (!entry.isIntersecting) return;
         io.unobserve(entry.target);
-        run(entry.target);
+        const id = runId;
+        whenRevealed(entry.target, () => {
+          if (id === runId) run(entry.target);
+        });
       });
     },
     { threshold: 0.6, rootMargin: '0px 0px -10% 0px' },
