@@ -483,7 +483,9 @@ html.alpha-ok .featured-media video.alpha {
 .project .banner {
   display: none;
 }
-@media (max-width: 1023px) {
+/* Tablet grid: narrow screens, plus touch tablets in landscape (e.g. iPad at ~1080px), which have no hover
+   and would otherwise get the desktop list with an empty image column. */
+@media (max-width: 1023px), (hover: none) and (max-width: 1366px) {
   .work-grid {
     display: block;
   }
