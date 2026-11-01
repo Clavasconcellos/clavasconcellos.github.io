@@ -52,9 +52,12 @@ function pickVideoFormat() {
 }
 
 export function initMotion() {
-  const isSafari = /^((?!chrome|android|crios|fxios|edg).)*safari/i.test(navigator.userAgent);
+  /* WebKit (Safari, and every browser on iPhone/iPad, e.g. Chrome's CriOS) can say it plays VP9 WebM
+     but drops the alpha channel, which shows a black box. Desktop Chromium UAs carry a "Chrome" token. */
+  const ua = navigator.userAgent;
+  const isWebKit = /AppleWebKit/i.test(ua) && !/Chrome|Chromium|Android/i.test(ua);
   const alpha = document.querySelector('.hero-video.alpha');
-  canPlayAlpha = !isSafari && Boolean(alpha?.canPlayType('video/webm; codecs="vp9"'));
+  canPlayAlpha = !isWebKit && Boolean(alpha?.canPlayType('video/webm; codecs="vp9"'));
   pickVideoFormat();
   videos = [...document.querySelectorAll('.hero-video')];
   paused = storage.get('cpv-motion') === 'paused';
