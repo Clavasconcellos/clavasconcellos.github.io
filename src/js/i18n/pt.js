@@ -50,7 +50,7 @@ export default {
   aiT2: 'Ideias velozes, iterações furiosas',
   aiP2: 'Becos sem saída criativos costumavam travar meu fluxo. Agora consigo seguir um novo insight e mudar de direção mais rápido que o Toretto troca de marcha. O segredo é configurar bem as conexões, para que produto e negócio continuem no volante.',
   aiT3: 'Unindo design e código',
-  aiP3: 'Eu já estruturava minhas camadas no Figma seguindo a lógica de divs do HTML e escrevia relatórios de Design QA comparando o Figma com a produção. Mesmo assim, achava que git pull era plano de hacker de La Casa de Papel. Construir com IA me levou a repositórios no GitHub, VS Code e merge de branches, e abriu mil novas possibilidades de prototipação.',
+  aiP3: 'Eu já estruturava minhas camadas no Figma seguindo a lógica de divs do HTML e escrevia relatórios de Design QA comparando o Figma com a produção. Mesmo assim, achava que git pull era plano de hacker de La Casa de Papel. Construir com IA me levou a novos mundos de possibilidades nos meus projetos.',
   aiT4: 'Dias de trabalho em uma tarde',
   aiP4: 'A Pixar ainda não me ligou. Mas After Effects, Premiere e um antigo hiperfoco em princípios de animação tornaram a ferramenta de animação do Figma fácil de aprender. Com IA, consigo ser ainda mais exigente com cada detalhe e entregar um trabalho melhor, mais rápido do que eu conseguiria fazendo tudo à mão.',
   contactTitle: 'Tem um desafio para <span class="nowrap">mim<span class="accent q">?</span></span>',
