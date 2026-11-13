@@ -9,4 +9,8 @@ export default {
   projects: ['3tentos', 'bestegg', 'tentoscap', 'foca'],
   /* every page except home, by its address: used to redirect the old /#3tentos style links */
   routes: ['resume', '3tentos', 'bestegg', 'tentoscap', 'foca'],
+  /* Google Analytics 4 measurement ID (G-XXXXXXXXXX). Empty = no tracking code on the site.
+     Only added to the published build, so local previews (npm start) are never counted. */
+  gaId: '',
+  production: process.env.ELEVENTY_RUN_MODE === 'build',
 };
