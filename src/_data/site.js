@@ -11,6 +11,6 @@ export default {
   routes: ['resume', '3tentos', 'bestegg', 'tentoscap', 'foca'],
   /* Google Analytics 4 measurement ID (G-XXXXXXXXXX). Empty = no tracking code on the site.
      Only added to the published build, so local previews (npm start) are never counted. */
-  gaId: '',
+  gaId: 'G-XG26SM4VR0',
   production: process.env.ELEVENTY_RUN_MODE === 'build',
 };
